@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SeanceController!{% endblock %}
+
+{% block body %}
+<main class="container">
+   <section class="row">
+        <div class="col-12">
+          
+           {% for seance in seances %}
+           <div class="container">
+             <div class="row align-items-start"> 
+                <div class="col">
+                   <h3>Activités: {{ seance.name }}</h3>  
+                </div>
+                <div class="col">
+                   <h4>Places disponibles: {{ seance.stock }} </h4>  
+                </div>
+                <div class="col">
+                   <h4>Prix: {{ seance.price }} </h4>  
+                </div>
+                <div class="col">
+                   <h4>Dates: {{ seance.datedelaseance|date("Y/m/d") }} </h4>   
+                </div> 
+                <div class="col">
+                   <a href="{{ path("cart_add", {id: seance.id}) }}" class="btn btn-success">  
+
+                 
+                     Ajouter 🛒
+                   </a>  
+                </div> 
+             </div>
+          </div>
+          {% endfor %} 
+       </div>           
+   </section>
+</main>  
+{% endblock %}
