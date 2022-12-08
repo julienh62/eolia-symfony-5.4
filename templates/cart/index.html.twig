@@ -23,8 +23,8 @@
                 <tr>
                     <td>{{ element.activites.name }}</td>
                     <td class="text-end"> {{ element.activites.price }}€</td>
-                    <td>    quantité</td>
-                    <td class="text-end"> €</td>
+                    <td> {{ element.quantite }}   quantité</td>
+                    <td class="text-end"> {{ element.quantite * element.activites.price }}€</td>
                     <td>
                         <a href="#" class="btn btn-success">
                              🛒

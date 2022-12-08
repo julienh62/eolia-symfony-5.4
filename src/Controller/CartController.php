@@ -28,6 +28,7 @@ class CartController extends AbstractController
               "activites" => $seance,
                "quantite" => $quantite
           ];
+          
            $total += $seance->getPrice() * $quantite;
       }
 
