@@ -12,7 +12,7 @@ class SeanceController extends AbstractController
     #[Route('/seance', name: 'app_seance')]
     public function index(SeanceRepository $seanceRepository): Response
     {
-        return $this->render('seance/index.html.twig', [
+        return $this->render('seance/seance.html.twig', [
           //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
           'seances'=> $seanceRepository->findAll(),
         ]

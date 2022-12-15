@@ -7,7 +7,7 @@
     <section class="bg-light p-3">
         <h1>Votre panier</h1>
     </section>
-
+ <form>
     <table class="table">
         <thead>
             <tr>
@@ -19,25 +19,27 @@
             </tr>
         </thead>
         <tbody>
-         {% for element in dataCart %} 
+       
+        {% for element in dataCart %}  
                 <tr>
-                    <td>{{ element.activites.name }}</td>
-                    <td class="text-end"> {{ element.activites.price }}€</td>
-                    <td> {{ element.quantite }}   quantité</td>
-                    <td class="text-end"> {{ element.quantite * element.activites.price }}€</td>
+                     <td>{{ element.activites.categorie.title }} </td>
+                    <td >{{ element.activites.price }}  €</td>
+                    <td>  {{ element.quantite  }}   </td>
+                    <td>  {{ element.quantite * element.activites.price }} </td>
+                   
                     <td>
-                        <a href="#" class="btn btn-success">
-                             🛒
+                        <a href="{{path("cart_add", {id: element.activites.id})}}" class="btn btn-success">
+                             🛒 + 1
                         </a>
-                        <a href="#" class="btn btn-warning">
-                          
+                        <a href="{{path("cart_remove", {id: element.activites.id})}}" class="btn btn-warning">
+                          🛒 - 1
                         </a>
-                        <a href="#" class="btn btn-danger">
-                           
+                        <a href="{{path("cart_delete", {id: element.activites.id})}}" class="btn btn-danger">
+                          🛒 Supprimer
                         </a>
                     </td>
                 </tr>
-           {% else %} 
+          {% else %} 
                 <tr>
                     <td colspan="5" class="text-center">Votre panier est vide</td>
                 </tr>
@@ -45,16 +47,21 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3">Total</td>
-                <td class="text-end">total €</td>
+                <td colspan="3">Total </td>
+                <td class="text-start">{{ total }} €</td>
                 <td>
-                    <a href="#" class="btn btn-danger">
-                        
+                    <a href="{{path("cart_delete_all")}}" class="btn btn-danger">
+                           Vider le panier
                     </a>
+                   
                 </td>
             </tr>
         </tfoot>
     </table>
-  
+    
+     <a href="#" class="btn btn-success">
+                           Valider le panier
+                    </a>
+  </form>
     
 {% endblock %}

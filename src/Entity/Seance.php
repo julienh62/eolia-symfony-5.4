@@ -14,34 +14,28 @@ class Seance
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\Column]
     private ?int $stock = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datedelaseance = null;
 
     #[ORM\Column]
     private ?int $price = null;
+
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
+
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+    
 
     public function getStock(): ?int
     {
@@ -55,12 +49,14 @@ class Seance
         return $this;
     }
 
+  
+
     public function getDatedelaseance(): ?\DateTimeInterface
     {
         return $this->datedelaseance;
     }
 
-    public function setDatedelaseance(\DateTimeInterface $datedelaseance): self
+    public function setDatedelaseance(?\DateTimeInterface $datedelaseance): self
     {
         $this->datedelaseance = $datedelaseance;
 
@@ -78,4 +74,19 @@ class Seance
 
         return $this;
     }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+
+    
 }
