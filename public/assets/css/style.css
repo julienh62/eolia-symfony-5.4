@@ -1,3 +1,112 @@
-h1 {
-    color:blue;
+/***************************************
+         CSS  MOBIL FIRST
+**************************************/
+
+/************generalités******************/
+
+/* *****************************************************************
+Tools
+***************************************************************** */
+
+* {
+    box-sizing: border-box;
+    /* On spécifie que la largeur (width) de chaque boîte comprend le padding et la bordure (par défaut, c'est seulement la largeur du contenu) */
 }
+
+html {
+    font-size: 62.5%;
+}
+
+* p {
+    font-size: 2rem;
+    line-height: 3rem;
+    Text-shadow: 0 0 0.015em #3383a9, 0 0 0.015em #3383a9;
+    margin: 1rem;
+}
+
+
+h1 {
+    font-size: 3rem;
+    margin: 1rem;
+    line-height: 4rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 1rem;
+    line-height: 3rem;
+}
+
+h3 {
+    font-size: 1.9rem;
+    margin: 1rem;
+
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+/************************************
+generalites
+/*************************************/
+
+body {
+
+    font-family: 'Numito', sans-serif;
+    color: #101936;
+    background: #fbfaf8;
+    text-shadow: 0 0 0.02em #000, 0 0 0.02em #000;
+}
+
+.container {
+
+    margin: 0 auto;
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+li {
+    list-style: none;
+    font-size: 2rem;
+
+}
+
+a {
+    text-decoration: none;
+    color: #3383a9;
+}
+
+label,
+input {
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+}
+
+/*******************************
+header
+************************************/
+.nav-link {
+ font-size: 2em;
+ margin:0.5em;
+}
+/*////////////////////////////////////// 
+//////////       SLIDER        //////////
+//////////////////////////////////////*/
+
+/*.slider {
+    display: none;
+}  */
+
+.titremobil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
