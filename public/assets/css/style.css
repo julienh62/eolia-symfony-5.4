@@ -58,7 +58,7 @@ body {
     font-family: 'Numito', sans-serif;
     color: #101936;
     background: #fbfaf8;
-    text-shadow: 0 0 0.02em #000, 0 0 0.02em #000;
+  /*  text-shadow: 0 0 0.02em #000, 0 0 0.02em #000;*/
 }
 
 .container {
@@ -95,6 +95,17 @@ header
  font-size: 2em;
  margin:0.5em;
 }
+
+
+.navbar-toggler collapsed
+{
+    font-size: 3em;
+    margin-right: 1em;
+}
+
+
+
+
 /*////////////////////////////////////// 
 //////////       SLIDER        //////////
 //////////////////////////////////////*/
@@ -102,11 +113,33 @@ header
 /*.slider {
     display: none;
 }  */
+.container-fluid {
+    background:#eaf4fe ;
+}
+
+.navbar-toggler-icon {
+    font-size:4em;
+    
+}
+/*////////////////////////////////////// 
+//////////       intro       //////////
+//////////////////////////////////////*/
 
 .titremobil {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+}
+.titreh1 {
+    text-align:center;
 }
 
-
+.intro,
+.fortmahon,
+.quendplage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}

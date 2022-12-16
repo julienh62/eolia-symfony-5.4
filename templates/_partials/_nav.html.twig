@@ -7,12 +7,36 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+               <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">HOME</a>
                 </li> 
                 <li class="nav-item">
-               <a class="nav-link" href="{{ path('app_seance') }}">Nos activités</a>
-                </li>  
+               <a class="nav-link" href="{#{{ path('app_seance') }}#}">NOS ACTIVITÉS</a>
+                </li>    -->
+
+            <li class="nav-item">
+               <a class="nav-link active" aria-current="page" href="/">ACCUEIL</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">QUEND-PLAGE</a>
+            </li>
+            <li>
+               <a class="nav-link" href="#">ACTIVITÉS</a>
+               <ul class="ulactivite">
+                    <li><a href="{{ path('app_seance') }}">Les séances de char à voile</a>
+                    </li>
+                    <li><a href="#">Locations de vélo</a></li>
+                    <li><a href="#">Kayak (séance ou location)</a></li>
+               </ul>
+              <li><a href="#">TARIFS</a></li>
+              <li><a href="#">CARTE CADEAU</a></li>
+              <li><a href="#">OFFRE-PRO</a></li>
+              <li><a href="#">SCOLAIRE</a></li>
+              <li><a href="#">HISTOIRE</a></li>
+              <li><a href="#">CONTACT</a></li>
+
+
+
           
 {#                <li class="nav-item dropdown">#}
 {#                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
