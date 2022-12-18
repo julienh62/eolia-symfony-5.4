@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-light">
+ 
+
+<nav class="navbar navbar-expand-lg bg-light"> 
     <div class="container-fluid">
         <a class="navbar-brand" href="/"> <img src= "{{ asset('assets/uploads/logoeolia170px.png')}}" alt ="char à voile Baie de Somme"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,33 +11,28 @@
           
                <!-- <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">HOME</a>
-                </li> 
+                </li> -->
                 <li class="nav-item">
-               <a class="nav-link" href="{#{{ path('app_seance') }}#}">NOS ACTIVITÉS</a>
-                </li>    -->
+               <a class="nav-link" href="{{ path('app_seance') }}">NOS ACTIVITÉS</a>
+                </li>    
 
-            <li class="nav-item">
-               <a class="nav-link active" aria-current="page" href="/">ACCUEIL</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">QUEND-PLAGE</a>
-            </li>
-            <li>
-               <a class="nav-link" href="#">ACTIVITÉS</a>
-               <ul class="ulactivite">
-                    <li><a href="{{ path('app_seance') }}">Les séances de char à voile</a>
-                    </li>
-                    <li><a href="#">Locations de vélo</a></li>
-                    <li><a href="#">Kayak (séance ou location)</a></li>
-               </ul>
-              <li><a href="#">TARIFS</a></li>
-              <li><a href="#">CARTE CADEAU</a></li>
-              <li><a href="#">OFFRE-PRO</a></li>
-              <li><a href="#">SCOLAIRE</a></li>
-              <li><a href="#">HISTOIRE</a></li>
-              <li><a href="#">CONTACT</a></li>
+              <li class="nav-item">
+                 <a class="nav-link active" aria-current="page" href="/">ACCUEIL</a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="#">QUEND-PLAGE</a>
+              </li>
+              <li>
+               <a class="nav-link" href="{{ path('app_seance') }}">ACTIVITÉS</a>
+                 
+               <li><a class="nav-link" href="#">TARIFS</a></li>
+               <li><a class="nav-link" href="#">CARTE CADEAU</a></li>
+               <li><a class="nav-link" href="#">OFFRE-PRO</a></li>
+               <li><a class="nav-link" href="#">SCOLAIRE</a></li>
+               <li><a class="nav-link" href="#">HISTOIRE</a></li>
+               <li><a class="nav-link" href="#">CONTACT</a></li>
 
-
+          </ul> 
 
           
 {#                <li class="nav-item dropdown">#}
@@ -52,17 +49,17 @@
 {#                <li class="nav-item">#}
 {#                    <a class="nav-link disabled">Disabled</a>#}
 {#                </li>#}
-           </ul> 
+          
            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {% if app.user %}  
+           {% if app.user %}  
                     <li class="nav-item">
                         <a class="nav-link" href="#">Mon compte</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="#{#{{ path('app_order') }}#}">Mes commandes</a>
+                        <a class="nav-link" href="{{ path('app_purchase') }}">Mes commandes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}" >Me déconneter</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}#}" >Me déconneter</a>
                     </li>
                {% else %}
                     <li class="nav-item">
@@ -71,9 +68,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}" >Me connecter</a>
                     </li>
-                {% endif %}
+               {% endif %}
                     <li class="nav-item">
-                   <a class="nav-link" href="#">🛒 {#{{ CartHandler.total > 0 ? CartHandler.total ~ ' €' : null }} #} </a> 
+                   <a class="nav-link" href="#">🛒 {#{{ CartHandler.total > 0 ? CartHandler.total ~ ' €' : null }}#}  </a> 
                    </li>
             </ul> 
         </div>

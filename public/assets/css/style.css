@@ -91,9 +91,13 @@ input {
 /*******************************
 header
 ************************************/
-.nav-link {
- font-size: 2em;
- margin:0.5em;
+
+
+
+
+a.nav-link {
+ font-size: 0.8em;
+ margin:0.8em;
 }
 
 
@@ -124,6 +128,12 @@ header
 /*////////////////////////////////////// 
 //////////       intro       //////////
 //////////////////////////////////////*/
+.slider {
+    display: none;
+}
+.img-accueil-desktop {
+    display: none;
+}
 
 .titremobil {
     display: flex;
@@ -140,6 +150,28 @@ header
 .quendplage {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;   
+}
+
+/*********************************************************************************************************
+          version desktop                        version desktop                        version desktop
+*******************************************************************************************************/
+
+@media screen and (min-width:1200px) {
+
+.container {
+        width: 85%;
+    }
+.img-accueil-desktop {
+    display: flex;
+}
+     .titremobil {
+        display: none;
+
+    }
+ .intro {
+        flex-direction: row;
+        align-items: center;
+    }
+
 }

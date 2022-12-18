@@ -137,5 +137,13 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_index');
     }
 
+    public function show()
+    {
+    return $this->render('cart/index.html.twig');
+    }
+
+
+
+
 
 }

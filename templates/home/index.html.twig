@@ -3,7 +3,30 @@
 {% block title %}Éolia!{% endblock %}
 
 {% block body %}
+<!--<script src="js/slick.min.js"></script> -->
+
+        <!--config jquery du plugin slick-->
+        <!-- Indiquer sur quel élément de la page on applique le plugin -->
+      <!-- <script type="text/javascript">
+            $(document).ready(function() {
+                $('.slider').slick({
+                    // setting - name: setting - value
+                });
+            }); 
+        </script> -->
+
  <main class="container"> 
+
+   <div class="slider">
+                <div><img src="{{ asset('assets/uploads/char-accueiltitregros1500.jpg')}}" alt="char à voile"></div>
+                <div><img src="{{ asset('assets/uploads/charpaysage.jpg')}}" alt="char enfant"></div>
+                <div><img src="{{ asset('assets/uploads/chardepart-1500.jpg')}}" alt="char-depart"></div>
+   </div>  
+
+           <div class="img-accueil-desktop">
+              <img src="{{ asset('assets/uploads/char-accueiltitregros1500.jpg')}}" alt="char à voile">
+           </div>
+
     <div class="titremobil">
            
               <img src= "{{ asset('assets/uploads/char-accueil.jpg')}}" alt ="char à voile Baie de Somme"/>
@@ -20,5 +43,12 @@
                 </div>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d162960.58094757705!2d1.578692!3d50.343073!3m2!1i1024!2i768!4f13.1!2m1!1sEolia%20Fort%20mMahon%20et%20Quend%20Plage!5e0!3m2!1sfr!2sus!4v1639571521156!5m2!1sfr!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>   
     </div>
+
+    <div class="p-version-tablette">
+                    <p>Devant vous l’espace infini de la Baie de Somme en Picardie, EOLIA vous convie à des « Escapades Aér’O Plage », sorties inoubliables aux accents d’Air d’Eau et de Sable.</p>
+     </div>
+
+
  </main>
 {% endblock %}
+ 
