@@ -53,24 +53,24 @@
            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
            {% if app.user %}  
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mon compte</a>
+                        <a class="nav-link" href="#">MON COMPTE</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_purchase') }}">Mes commandes</a>
+                        <a class="nav-link" href="{{ path('app_purchase') }}">MES COMMANDES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}#}" >Me déconneter</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}#}" >ME DÉCONNECTER</a>
                     </li>
                {% else %}
                     <li class="nav-item">
-                       <a class="nav-link" href=" {{ path('app_registration')  }}" >M'inscrire</a>
+                       <a class="nav-link" href=" {{ path('app_registration')  }}" >INSCRIPTION</a>
                     </li>  
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}" >Me connecter</a>
+                        <a class="nav-link" href="{{ path('app_login') }}" >CONNEXION</a>
                     </li>
                {% endif %}
                     <li class="nav-item">
-                   <a class="nav-link" href="#">🛒 {#{{ CartHandler.total > 0 ? CartHandler.total ~ ' €' : null }}#}  </a> 
+                   <a class="nav-link" href="{{ path('cart_index') }} ">🛒  </a>
                    </li>
             </ul> 
         </div>

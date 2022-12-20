@@ -12,44 +12,26 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class PurchasesListController extends AbstractController
 {
-    protected $security;
-    protected $router;
-    protected $twig;
-    public function __construct(Security $security, RouterInterface $router,
-    Environment $twig)
-    {
-       $this->security = $security;
-       $this->router = $router;
-       $this->twig = $twig;
-    }
-
     /**
      * @Route("/purchase", name="app_purchase")
+     * @IsGranted ("ROLE_USER", message ="Vous devez être connecté pour  accéder vos commandes" )
      */
-    public function index(): Response
+    public function index()
     {
         //il faut verifier que le user est bien connecté
         //grace à la classe security
         /** @var User */
-        $user = $this->security->getUser();
-
-       //savoir qui est connecté
+        $user = $this->getUser();
 
 
-        // sinon redirection avec le service routerInterface
-        if(!$user) {
-            //$url = $this->router->generate('app_home');
-           // return new RedirectResponse($url);
-            throw new AccessDeniedException("Vous devez être connecté
-            pour  accéder vos commandes");
-        }
-        //afficher avec service twig
-        $html = $this->twig->render('purchase/index.html.twig', [
+        return $this->render('purchase/index.html.twig', [
             'purchases' => $user->getPurchases()
         ]);
-        return new Response($html);
+
     }
 }
