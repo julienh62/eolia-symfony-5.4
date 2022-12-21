@@ -23,9 +23,9 @@
         {% for element in dataCart %}  
                 <tr>
                      <td>{{ element.activites.categorie.title }} </td>
-                    <td >{{ element.activites.price }}  €</td>
+                    <td >{{ element.activites.price / 100 }}  €</td>
                     <td>  {{ element.quantite  }}   </td>
-                    <td>  {{ element.quantite * element.activites.price }} </td>
+                    <td>  {{ element.quantite * element.activites.price / 100 }} </td>
                    
                     <td>
                         <a href="{{path("cart_add", {id: element.activites.id})}}" class="btn btn-success">

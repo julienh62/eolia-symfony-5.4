@@ -17,7 +17,7 @@
                    <h4>Places disponibles: {{ seance.stock }} </h4>  
                 </div>
                 <div class="col">
-                   <h4>Prix: {{ seance.price }} </h4>  
+                   <h4>Prix: {{ seance.price / 100 }} </h4>  
                 </div>
                 <div class="col">
                    <h4>Dates: {{ seance.datedelaseance|date("Y/m/d") }} </h4>   

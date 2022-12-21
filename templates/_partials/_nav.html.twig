@@ -19,13 +19,11 @@
               <li class="nav-item">
                  <a class="nav-link active" aria-current="page" href="/">ACCUEIL</a>
               </li>
-              <li class="nav-item">
-                 <a class="nav-link" href="#">QUEND-PLAGE</a>
-              </li>
+             
               <li>
                <a class="nav-link" href="{{ path('app_seance') }}">ACTIVITÉS</a>
                  
-               <li><a class="nav-link" href="#">TARIFS</a></li>
+         
                <li><a class="nav-link" href="#">CARTE CADEAU</a></li>
                <li><a class="nav-link" href="#">OFFRE-PRO</a></li>
                <li><a class="nav-link" href="#">SCOLAIRE</a></li>
@@ -59,8 +57,11 @@
                         <a class="nav-link" href="{{ path('app_purchase') }}">MES COMMANDES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}#}" >ME DÉCONNECTER</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}#}" >M DÉCONNECTER</a>
                     </li>
+                    <li class="nav-item">
+                   <a class="nav-link" href="{{ path('cart_index') }} ">🛒  </a>
+                   </li>
                {% else %}
                     <li class="nav-item">
                        <a class="nav-link" href=" {{ path('app_registration')  }}" >INSCRIPTION</a>
@@ -69,9 +70,7 @@
                         <a class="nav-link" href="{{ path('app_login') }}" >CONNEXION</a>
                     </li>
                {% endif %}
-                    <li class="nav-item">
-                   <a class="nav-link" href="{{ path('cart_index') }} ">🛒  </a>
-                   </li>
+                 
             </ul> 
         </div>
     </div>

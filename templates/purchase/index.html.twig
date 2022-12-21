@@ -12,6 +12,7 @@
         <th>Code Postal</th>
         <th>Ville</th>
         <th>Date de la commande</th>
+        <th>Commande<th/>
         <th>Total</th>
     </tr>
     </thead>
@@ -22,7 +23,16 @@
               <td>{{ p.address }}</td>
               <td>{{ p.postalCode }}</td>
               <td>{{ p.city }}</td>
-              <td>{{ p.createdAt|date("Y/m/d H:i") }}</td>
+              <td> {{ p.createdAt|date("Y/m/d H:i") }} </td>
+               <td>
+                <ul>  
+                   {% for item in p.purchaseItems  %}
+                     <li>
+                        {{ item.quantity }} x {{ item.seanceName }} ({{ item.seancePrice /100 }}€ ) 
+                     </li>
+                   {%  endfor %}  
+                </ul>
+              </td>
               <td>{{ p.total / 100 }}€</td>
           </tr>
     {%  endfor %}

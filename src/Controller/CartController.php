@@ -41,7 +41,7 @@ class CartController extends AbstractController
                 "quantite" => $quantite
             ];
 
-            $total += $seance->getPrice() * $quantite;
+            $total += $seance->getPrice() * $quantite /100 ;
 
         }
         return $this->render('cart/index.html.twig',compact("dataCart", "total") );
