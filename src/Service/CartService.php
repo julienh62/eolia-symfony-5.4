@@ -32,7 +32,15 @@ class CartService {
     //  public function getFullCart() : array {
 //
 //    //}
-//    //public function getTotal(): float  {
-//
-//    //}
+    public function getTotal(): float  {
+         $total = 0;
+
+         foreach ($this->session->get('cart', []) as $id => $quantite) {
+             $seance = $this->seanceRepository->find($id);
+
+             $total += $seance->getPrice() * $quantite;
+         }
+
+         return $total;
+    }
 }

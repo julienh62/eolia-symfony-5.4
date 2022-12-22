@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Form\CartConfirmationType;
 use App\Repository\CategorieRepository;
 use App\Entity\Seance;
 use App\Repository\SeanceRepository;
@@ -26,12 +27,16 @@ class CartController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(SessionInterface $session, SeanceRepository $seanceRepository): Response
     {
+     //   $form = $this->createForm(CartConfirmationType::class);
+
 
 
         $cart = $session->get("cart", []);
         $total = 0;
         // on fabrique les données
         $dataCart = [] ;
+
+//        $dataCart = $this->cartService->getTotal();
 
         foreach($cart as $id => $quantite){
             $seance = $seanceRepository->find($id);
@@ -41,7 +46,7 @@ class CartController extends AbstractController
                 "quantite" => $quantite
             ];
 
-            $total += $seance->getPrice() * $quantite /100 ;
+      //      $total += $seance->getPrice() * $quantite /100 ;
 
         }
         return $this->render('cart/index.html.twig',compact("dataCart", "total") );
@@ -96,6 +101,15 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('cart_index');
     }
+//    #[Route('/cart', name: 'cart_show')]
+//    public function show()
+//    {
+//        return $this->render('cart/index.html.twig');
+//    }
+
+
+
+
 
     #[Route('/delete/{id<[0-9]+>}', name: 'delete')]
     public function delete($id, SessionInterface $session)
@@ -137,10 +151,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_index');
     }
 
-    public function show()
-    {
-    return $this->render('cart/index.html.twig');
-    }
+
 
 
 
