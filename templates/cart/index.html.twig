@@ -7,8 +7,8 @@
     <section class="bg-light p-3">
         <h1>Votre panier</h1>
     </section>
- <form>
-    <table class="table">
+   {% if dataCart | length > 0 %}
+<table class="table">
         <thead>
             <tr>
                 <th>Produit</th>
@@ -26,7 +26,6 @@
                     <td >{{ element.activites.price / 100 }}  €</td>
                     <td>  {{ element.quantite  }}   </td>
                     <td>  {{ element.quantite * element.activites.price / 100 }} </td>
-                   
                     <td>
                         <a href="{{path("cart_add", {id: element.activites.id})}}" class="btn btn-success">
                              🛒 + 1
@@ -39,10 +38,7 @@
                         </a>
                     </td>
                 </tr>
-          {% else %} 
-                <tr>
-                    <td colspan="5" class="text-center">Votre panier est vide</td>
-                </tr>
+
            {% endfor %} 
         </tbody>
         <tfoot>
@@ -58,13 +54,26 @@
             </tr>
         </tfoot>
     </table>
-    
-     <a href="#" class="btn btn-success">
-                           Valider le panier
-                    </a>
+       <a  class="btn btn-primary" href="{{path("app_seance")}}">
+           Compléter votre panier
+       </a>
+    <hr>
+     <h2>Confirmez votre commande en remplissant ce formulaire</h2>
+     {{ form_start(confirmationForm) }}
+
+     {{ form_widget(confirmationForm) }}
+
+     <button type="submit" class="btn btn-success">Valider</button>
+
+     {{ form_end(confirmationForm) }}
+
      <a  class="btn btn-primary" href="{{path("app_seance")}}">
         Retour aux activités
      </a>
-  </form>
+   {% else %}
+       <tr>
+           <td colspan="5" class="text-center">Votre panier est vide</td>
+       </tr>
+  {% endif %}
     
 {% endblock %}

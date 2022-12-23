@@ -17,54 +17,43 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cart', name: 'cart_')]
 class CartController extends AbstractController
 {
+     protected $cartService;
+     protected $seanceRepository;
+      public function __construct(Cartservice $cartService,SeanceRepository $seanceRepository )
+      {
+        $this->cartService = $cartService;
+        $this->seanceRepository= $seanceRepository;
     
-      public function __construct(
-        private CartService $cartService,
-        private SeanceRepository $seanceRepository){
-    
-  }
+      }
 
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, SeanceRepository $seanceRepository): Response
+    public function index()
     {
-     //   $form = $this->createForm(CartConfirmationType::class);
+    $form = $this->createForm(CartConfirmationType::class);
 
 
+     $dataCart = $this->cartService->getDataCart();
 
-        $cart = $session->get("cart", []);
-        $total = 0;
-        // on fabrique les données
-        $dataCart = [] ;
+     $total = $this->cartService->getTotal();
 
-//        $dataCart = $this->cartService->getTotal();
 
-        foreach($cart as $id => $quantite){
-            $seance = $seanceRepository->find($id);
-            // dd($seance);
-            $dataCart[] = [
-                "activites" => $seance,
-                "quantite" => $quantite
-            ];
-
-      //      $total += $seance->getPrice() * $quantite /100 ;
-
-        }
-        return $this->render('cart/index.html.twig',compact("dataCart", "total") );
+        return $this->render('cart/index.html.twig', [
+            'dataCart' => $dataCart,
+            'total' => $total,
+            'confirmationForm' => $form->createView()
+            ]);
+           // compact("dataCart", "total") );
     }
-
-
-
 
     #[Route('/add/{id<[0-9]+>}', name: 'add')]
     public function add(int $id)
     {
-      //  dd($cartService);
-        $this->cartService->add($id);
-       
+      //  dd($cartService)$this->cartService->add($id);
+       $this->cartService->add($id);
         
         return $this->redirectToRoute('cart_index');
     }
-
+    // code ajouté dans le cartservice
     //  #[Route('/add/{id<[0-9]+>}', name: 'add')]
     //    public function add(Seance $seance, SessionInterface $session)
     //  {
@@ -84,20 +73,22 @@ class CartController extends AbstractController
 
 
     #[Route('/remove/{id<[0-9]+>}', name: 'remove')]
-    public function remove($id, SessionInterface $session, SeanceRepository $seanceRepository)
+    public function remove($id)
     {
-        // on récupère le panier actuel
-        $cart = $session->get("cart", []);
+        $this->cartService->remove($id);
 
-        if(!empty($cart[$id])){
-            if($cart[$id] >1){
-                $cart[$id]--;
-            }else{
-                unset($cart[$id]);
-            }
-        }
-        //on sauvegarde dans la session
-        $session->set("cart", $cart);
+//        // on récupère le panier actuel
+//        $cart = $session->get("cart", []);
+//
+//        if(!empty($cart[$id])){
+//            if($cart[$id] >1){
+//                $cart[$id]--;
+//            }else{
+//                unset($cart[$id]);
+//            }
+//        }
+//        //on sauvegarde dans la session
+//        $session->set("cart", $cart);
 
         return $this->redirectToRoute('cart_index');
     }
@@ -112,28 +103,29 @@ class CartController extends AbstractController
 
 
     #[Route('/delete/{id<[0-9]+>}', name: 'delete')]
-    public function delete($id, SessionInterface $session)
+    public function delete($id)
     {
-        // on récupère le panier actuel
-        $cart = $session->get("cart", []);
-
-        if(!empty($cart[$id])){
-            unset($cart[$id]);
-        }
-
-        //on sauvegarde dans la session
-        $session->set("cart", $cart);
+        $this->cartService->delete($id);
+//        // on récupère le panier actuel
+//        $cart = $session->get("cart", []);
+//
+//        if(!empty($cart[$id])){
+//            unset($cart[$id]);
+//        }
+//
+//        //on sauvegarde dans la session
+//        $session->set("cart", $cart);
 
         return $this->redirectToRoute('cart_index');
     }
 
     #[Route('/delete', name: 'delete_all')]
-    public function deleteAll(SessionInterface $session)
+    public function deleteAll()
     {
-
-        $session->set("cart", []);
-
-        unset($cart);
+        $this->cartService->deleteAll();
+//        $this->session->set("cart", []);
+//
+//        unset($cart);
 
 
         return $this->redirectToRoute('cart_index');
@@ -142,8 +134,8 @@ class CartController extends AbstractController
     #[Route('/display', name: 'display')]
     public function display(SessionInterface $session)
     {
-        // on récupère le panier actuel
-        $session->set("cart", []);
+//        // on récupère le panier actuel
+//        $this->session->set("cart", []);
 
 
 
