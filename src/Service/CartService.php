@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\SeanceRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
+use App\Service\CartItemService;
 
 class CartService {
 
@@ -39,6 +40,11 @@ class CartService {
         foreach ($this->session->get('cart', []) as $id => $quantite) {
             $seance = $this->seanceRepository->find($id);
 
+            // si une seance est supprimée, on continue la boucle
+            if(!$seance){
+                continue;
+            }
+
             $total += ($seance->getPrice() * $quantite / 100);
         }
 
@@ -52,16 +58,23 @@ class CartService {
         $total = 0;
 //        $dataCart = $this->cartService->getTotal();
 
-        foreach($this->session->get('cart', []) as $id => $quantite){
-            $seance = $this->seanceRepository->find($id);
+         foreach($this->session->get('cart', []) as $id => $quantite){
+           $seance = $this->seanceRepository->find($id);
             // dd($seance);
-            $dataCart[] = [
-                'activites' => $seance,
-                'quantite' => $quantite
-            ];
+//            $dataCart[] = [
+//                'seance' => $seance,
+//                'quantite' => $quantite
+//            ];
+
+             // si une seance est supprimée, on continue la boucle
+             if(!$seance){
+                 continue;
+             }
 
 
-          //   $total += ($seance->getPrice() * $quantite /100) ;
+        $dataCart[] = new CartItemService($seance, $quantite);
+
+         //  $total += ($seance->getPrice() * $quantite /100) ;
         }
 
         return $dataCart;

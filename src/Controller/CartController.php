@@ -38,7 +38,7 @@ class CartController extends AbstractController
 
 
         return $this->render('cart/index.html.twig', [
-            'dataCart' => $dataCart,
+            'dataCarte' => $dataCart,
             'total' => $total,
             'confirmationForm' => $form->createView()
             ]);

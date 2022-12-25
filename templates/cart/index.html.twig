@@ -7,7 +7,7 @@
     <section class="bg-light p-3">
         <h1>Votre panier</h1>
     </section>
-   {% if dataCart | length > 0 %}
+   {% if dataCarte | length > 0 %}
 <table class="table">
         <thead>
             <tr>
@@ -20,20 +20,21 @@
         </thead>
         <tbody>
        
-        {% for element in dataCart %}  
+        {% for element in dataCarte %}  
                 <tr>
-                     <td>{{ element.activites.categorie.title }} </td>
-                    <td >{{ element.activites.price / 100 }}  €</td>
+                     <td>{{ element.seance.categorie.title }} </td>
+                    <td >{{ element.seance.price / 100 }}  €</td>
                     <td>  {{ element.quantite  }}   </td>
-                    <td>  {{ element.quantite * element.activites.price / 100 }} </td>
+{#                    <td>  {{ element.quantite * element.seance.price / 100 }} </td>#}
+                    <td> {{ element.total }}</td>
                     <td>
-                        <a href="{{path("cart_add", {id: element.activites.id})}}" class="btn btn-success">
+                        <a href="{{path("cart_add", {id: element.seance.id})}}" class="btn btn-success">
                              🛒 + 1
                         </a>
-                        <a href="{{path("cart_remove", {id: element.activites.id})}}" class="btn btn-warning">
+                        <a href="{{path("cart_remove", {id: element.seance.id})}}" class="btn btn-warning">
                           🛒 - 1
                         </a>
-                        <a href="{{path("cart_delete", {id: element.activites.id})}}" class="btn btn-danger">
+                        <a href="{{path("cart_delete", {id: element.seance.id})}}" class="btn btn-danger">
                           🛒 Supprimer
                         </a>
                     </td>
