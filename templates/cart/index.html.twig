@@ -24,8 +24,8 @@
                 <tr>
                      <td>{{ element.seance.categorie.title }} </td>
                     <td >{{ element.seance.price / 100 }}  €</td>
-                    <td>  {{ element.quantite  }}   </td>
-{#                    <td>  {{ element.quantite * element.seance.price / 100 }} </td>#}
+                    <td>  {{ element.quantity  }}   </td>
+{#                    <td>  {{ element.quantity * element.seance.price / 100 }} </td>#}
                     <td> {{ element.total }}</td>
                     <td>
                         <a href="{{path("cart_add", {id: element.seance.id})}}" class="btn btn-success">

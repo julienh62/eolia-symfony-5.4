@@ -3,9 +3,13 @@
 namespace App\Controller\Purchase;
 
 
-
+use App\Repository\PurchaseItemRepository;
+use App\Entity\Purchase;
+use App\Entity\PurchaseItem;
 use App\Form\CartConfirmationType;
 use App\Service\CartService;
+use App\Service\CartItemService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,13 +26,15 @@ class PurchaseConfirmationController extends AbstractController
     protected $router;
     protected $security;
     protected $cartService;
+    protected $em;
     public function __construct(FormFactoryInterface $formFactory, RouterInterface $router,
-    Security $security, CartService $cartService)
+    Security $security, CartService $cartService, EntityManagerInterface $em)
     {
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->security = $security;
         $this->cartService = $cartService;
+        $this->em = $em;
     }
 
     #[Route('/purchase/confirm', name: 'app_purchase_confirm')]
@@ -63,15 +69,45 @@ class PurchaseConfirmationController extends AbstractController
             if(count($dataCart) === 0) {
                 return new RedirectResponse($this->router->generate('cart_index'));
             }
-
+             // dd($form->getData());
+           // on obtient directement  les resultats ss forme de classe purchase
+           //grace à la configuration en fin du formulaireType
            // Créer une Purchase
-
-
+            /** @var Purchase */
+           $purchase = $form->getData();
+          // dd($purchase);
            //lier la purchase avec l' utilisateur connecté (Security)
+           $purchase->setUser($user)
+               ->setCreatedAt(new \DateTimeImmutable());
 
+           $this->em->persist($purchase);
 
            //lier avec les produits du panier Cartservice
+           $total = 0;
+
+//           foreach($this->cartService->getDataCart() as $cartItem) {
+        foreach ($this->cartService->getDataCart() as $cartItem) {
+               $purchaseItem = new PurchaseItem();
+       //       dd($cartItem);
+//               dd($purchaseItem);
+               $purchaseItem->setPurchase($purchase)
+//                   ->setSeance($cartItem->seance->getDatedelaseance())
+                   ->setSeanceName($cartItem->seance->getPrice())
+                   ->setSeancePrice($cartItem->seance->getPrice())
+                 ->setQuantity($cartItem->quantity)
+                   ->setTotal($cartItem->getTotal());
+
+               $total += $cartItem->getTotal();
+
+                   $this->em->persist($purchaseItem);
+           }
+
+           $purchase->setTotal($total);
 
            // enregistrer la commande (entityManagerInterface)
+           $this->em->flush();
+
+           return new RedirectResponse($this->router->generate('app_purchase'));
+
        }
 }

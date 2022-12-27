@@ -37,7 +37,7 @@ class CartService {
 
         $total = 0;
 
-        foreach ($this->session->get('cart', []) as $id => $quantite) {
+        foreach ($this->session->get('cart', []) as $id => $quantity) {
             $seance = $this->seanceRepository->find($id);
 
             // si une seance est supprimée, on continue la boucle
@@ -45,25 +45,30 @@ class CartService {
                 continue;
             }
 
-            $total += ($seance->getPrice() * $quantite / 100);
+            $total += ($seance->getPrice() * $quantity / 100);
         }
 
         return $total;
 
     }
 
+
+    /**
+     *
+     * @return CartItem[]
+     */
     public function getDataCart(): array {
         // on fabrique les données
         $dataCart = [] ;
         $total = 0;
 //        $dataCart = $this->cartService->getTotal();
 
-         foreach($this->session->get('cart', []) as $id => $quantite){
+         foreach($this->session->get('cart', []) as $id => $quantity){
            $seance = $this->seanceRepository->find($id);
             // dd($seance);
 //            $dataCart[] = [
 //                'seance' => $seance,
-//                'quantite' => $quantite
+//                'quantity' => $quantity
 //            ];
 
              // si une seance est supprimée, on continue la boucle
@@ -72,9 +77,9 @@ class CartService {
              }
 
 
-        $dataCart[] = new CartItemService($seance, $quantite);
+        $dataCart[] = new CartItemService($seance, $quantity);
 
-         //  $total += ($seance->getPrice() * $quantite /100) ;
+         //  $total += ($seance->getPrice() * $quantity /100) ;
         }
 
         return $dataCart;

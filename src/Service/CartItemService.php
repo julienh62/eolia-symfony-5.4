@@ -11,17 +11,17 @@ class CartItemService
 {
 
         public $seance;
-        public $quantite;
+        public $quantity;
 
-        public function __construct(Seance $seance, int $quantite)
+        public function __construct(Seance $seance, int $quantity)
         {
             $this->seance = $seance;
-            $this->quantite= $quantite;
+            $this->quantity= $quantity;
         }
 
         public function getTotal() : int
         {
-              return $this->seance->getPrice() * $this->quantite / 100;
+              return $this->seance->getPrice() * $this->quantity / 100;
         }
 
 }

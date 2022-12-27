@@ -17,7 +17,7 @@ class Seance
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $stock = null;
+    private ?int $quantity = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datedelaseance = null;
@@ -48,14 +48,14 @@ class Seance
 
     
 
-    public function getStock(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->stock;
+        return $this->quantity;
     }
 
-    public function setStock(int $stock): self
+    public function setQuantity(int $quantity): self
     {
-        $this->stock = $stock;
+        $this->quantity = $quantity;
 
         return $this;
     }
