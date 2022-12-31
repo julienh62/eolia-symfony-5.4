@@ -86,12 +86,13 @@ class PurchaseConfirmationController extends AbstractController
           // dd($purchase);
            //lier la purchase avec l' utilisateur connecté (Security)
            $purchase->setUser($user)
-               ->setCreatedAt(new \DateTimeImmutable());
+               ->setCreatedAt(new \DateTimeImmutable())
+               ->setTotal($this->cartService->getTotal());
 
            $this->em->persist($purchase);
 
            //lier avec les produits du panier Cartservice
-           $total = 0;
+       //    $total = 0;
 
 //           foreach($this->cartService->getDataCart() as $cartItem) {
         foreach ($this->cartService->getDataCart() as $cartItem) {
@@ -105,15 +106,18 @@ class PurchaseConfirmationController extends AbstractController
                  ->setQuantity($cartItem->quantity)
                    ->setTotal($cartItem->getTotal());
 
-               $total += $cartItem->getTotal();
+//               $total += $cartItem->getTotal();
 
                    $this->em->persist($purchaseItem);
            }
 
-           $purchase->setTotal($total);
+//           $purchase->setTotal($total);
 
            // enregistrer la commande (entityManagerInterface)
            $this->em->flush();
+
+           //vider le panier une fois la commande effectuée grace au cartservice
+            $this->cartService->empty();
 
            return $this->redirectToRoute('app_purchase');
 

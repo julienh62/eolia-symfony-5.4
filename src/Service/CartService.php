@@ -16,6 +16,16 @@ class CartService {
         $this->seanceRepository = $seanceRepository;
     }
 
+    public function saveCart(array $cart){
+        //pour vider le panier (aussi aprés chaque commande effectuée)
+        $this->session->set('cart', $cart);
+    }
+
+    public function empty(){
+        //pour vider le panier (aussi aprés chaque commande effectuée)
+        $this->saveCart([]);
+    }
+
     public function add(int $id) {
         // on récupère le panier actuel
         $cart = $this->session->get("cart", []);
