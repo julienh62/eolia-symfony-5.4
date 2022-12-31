@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use App\Purchase\PurchasePersister;
+
 
 
 class PurchaseConfirmationController extends AbstractController
@@ -28,11 +30,14 @@ class PurchaseConfirmationController extends AbstractController
     //protected $security;pas besoin car abstractcontroller
     protected $cartService;
     protected $em;
-    public function __construct(CartService $cartService, EntityManagerInterface $em)
+    protected $purchasePersister;
+    public function __construct(CartService $cartService, EntityManagerInterface $em,
+    PurchasePersister $purchasePersister)
     {
         //$this->router = $router; pas besoin car abstractcontroller
         $this->cartService = $cartService;
         $this->em = $em;
+        $this->purchasePersister =$purchasePersister;
     }
 
 
@@ -44,26 +49,26 @@ class PurchaseConfirmationController extends AbstractController
      */
        public function confirm(Request $request)
        {
-        // lire les données du formulaire
+           // lire les données du formulaire
            //FormFactoryInterface / Request chaque requete est differente
            // c'est pour cela qu'elle est ici et non pas dans le constructeur
            $form = $this->createForm(CartConfirmationType::class);
-          // $form = $this->formFactory->create(CartConfirmationType::class);
+           // $form = $this->formFactory->create(CartConfirmationType::class);
            // pas besoin formfactory car abstractcontroller
 
            //handleRequest pour analyser la requete
            $form->handleRequest($request);
 
-        // si le formulaire n'a pa été soumis . Sortir
+           // si le formulaire n'a pa été soumis . Sortir
            //router interface permet de generer des url
            //cela évite d'ecrire en 'dur' des url dans le code
-           if(!$form->isSubmitted()) {
+           if (!$form->isSubmitted()) {
                return $this->redirectToRoute('cart_index');
            }
 
 
            // si je ne suis pas connecté : sortir
-           $user = $this->getUser();
+//           $user = $this->getUser();
 
 //           if(!$user) {   replacé par isGranted
 //               throw new AccessDeniedException("Vous devez être connecté pour confirmer votre commande");
@@ -72,54 +77,29 @@ class PurchaseConfirmationController extends AbstractController
            //s'il n'y a pas de produit dans le panier ; sortir (cartservice)$
            $dataCart = $this->cartService->getDataCart();
 
-            if(count($dataCart) === 0) {
-                return $this->redirectToRoute('cart_index');
+           if (count($dataCart) === 0) {
+               return $this->redirectToRoute('cart_index');
                // return new RedirectResponse($this->router->generate('cart_index'));
-                //plus besoinn grace à abstractcontroller
-            }
-             // dd($form->getData());
+               //plus besoinn grace à abstractcontroller
+           }
+           // dd($form->getData());
            // on obtient directement  les resultats ss forme de classe purchase
            //grace à la configuration en fin du formulaireType
            // Créer une Purchase
-            /** @var Purchase */
+           /** @var Purchase */
            $purchase = $form->getData();
-          // dd($purchase);
-           //lier la purchase avec l' utilisateur connecté (Security)
-           $purchase->setUser($user)
-               ->setCreatedAt(new \DateTimeImmutable())
-               ->setTotal($this->cartService->getTotal());
-
-           $this->em->persist($purchase);
-
-           //lier avec les produits du panier Cartservice
-       //    $total = 0;
-
-//           foreach($this->cartService->getDataCart() as $cartItem) {
-        foreach ($this->cartService->getDataCart() as $cartItem) {
-               $purchaseItem = new PurchaseItem();
-       //       dd($cartItem);
-//               dd($purchaseItem);
-               $purchaseItem->setPurchase($purchase)
-//                   ->setSeance($cartItem->seance->getDatedelaseance())
-                   ->setSeanceName($cartItem->seance->getPrice())
-                   ->setSeancePrice($cartItem->seance->getPrice())
-                 ->setQuantity($cartItem->quantity)
-                   ->setTotal($cartItem->getTotal());
-
-//               $total += $cartItem->getTotal();
-
-                   $this->em->persist($purchaseItem);
-           }
+           // dd($purchase);
 
 //           $purchase->setTotal($total);
 
-           // enregistrer la commande (entityManagerInterface)
-           $this->em->flush();
+           //on va appeler le service qui represente la commande du panier
+           $this->purchasePersister->storePurchase($purchase);
+
 
            //vider le panier une fois la commande effectuée grace au cartservice
-            $this->cartService->empty();
+           $this->cartService->empty();
 
            return $this->redirectToRoute('app_purchase');
-
        }
+
 }
