@@ -3,47 +3,53 @@
 namespace App\Controller\Purchase;
 
 
-use App\Repository\PurchaseItemRepository;
 use App\Entity\Purchase;
 use App\Entity\PurchaseItem;
-use App\Form\CartConfirmationType;
 use App\Service\CartService;
 use App\Service\CartItemService;
+use App\Form\CartConfirmationType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PurchaseItemRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 
 
 class PurchaseConfirmationController extends AbstractController
 {
-    protected $formFactory;
-    protected $router;
-    protected $security;
+
+   // protected $router;pas besoin car abstractcontroller
+    //protected $security;pas besoin car abstractcontroller
     protected $cartService;
     protected $em;
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router,
-    Security $security, CartService $cartService, EntityManagerInterface $em)
+    public function __construct(CartService $cartService, EntityManagerInterface $em)
     {
-        $this->formFactory = $formFactory;
-        $this->router = $router;
-        $this->security = $security;
+        //$this->router = $router; pas besoin car abstractcontroller
         $this->cartService = $cartService;
         $this->em = $em;
     }
 
-    #[Route('/purchase/confirm', name: 'app_purchase_confirm')]
+
+//    #[Route('/purchase/confirm', name: 'app_purchase_confirm')]
+
+    /**
+     * @Route("/purchase/confirm", name="app_purchase_confirm")
+     * IsGranted("ROLE_USER", message="Vous devez être connecté pour confirmer une commande")
+     */
        public function confirm(Request $request)
        {
         // lire les données du formulaire
            //FormFactoryInterface / Request chaque requete est differente
            // c'est pour cela qu'elle est ici et non pas dans le constructeur
-           $form = $this->formFactory->create(CartConfirmationType::class);
+           $form = $this->createForm(CartConfirmationType::class);
+          // $form = $this->formFactory->create(CartConfirmationType::class);
+           // pas besoin formfactory car abstractcontroller
 
            //handleRequest pour analyser la requete
            $form->handleRequest($request);
@@ -52,22 +58,24 @@ class PurchaseConfirmationController extends AbstractController
            //router interface permet de generer des url
            //cela évite d'ecrire en 'dur' des url dans le code
            if(!$form->isSubmitted()) {
-               return new RedirectResponse($this->router->generate('cart_index'));
+               return $this->redirectToRoute('cart_index');
            }
 
 
            // si je ne suis pas connecté : sortir
-           $user = $this->security->getUser();
+           $user = $this->getUser();
 
-           if(!$user) {
-               throw new AccessDeniedException("Vous devez être connecté pour confirmer votre commande");
-           }
+//           if(!$user) {   replacé par isGranted
+//               throw new AccessDeniedException("Vous devez être connecté pour confirmer votre commande");
+//           }
 
            //s'il n'y a pas de produit dans le panier ; sortir (cartservice)$
            $dataCart = $this->cartService->getDataCart();
 
             if(count($dataCart) === 0) {
-                return new RedirectResponse($this->router->generate('cart_index'));
+                return $this->redirectToRoute('cart_index');
+               // return new RedirectResponse($this->router->generate('cart_index'));
+                //plus besoinn grace à abstractcontroller
             }
              // dd($form->getData());
            // on obtient directement  les resultats ss forme de classe purchase
@@ -107,7 +115,7 @@ class PurchaseConfirmationController extends AbstractController
            // enregistrer la commande (entityManagerInterface)
            $this->em->flush();
 
-           return new RedirectResponse($this->router->generate('app_purchase'));
+           return $this->redirectToRoute('app_purchase');
 
        }
 }
