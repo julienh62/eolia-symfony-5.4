@@ -97,9 +97,11 @@ class PurchaseConfirmationController extends AbstractController
 
 
            //vider le panier une fois la commande effectuée grace au cartservice
-           $this->cartService->empty();
+          // $this->cartService->empty();
 
-           return $this->redirectToRoute('app_purchase');
+           return $this->redirectToRoute('app_purchase_payment_form', [
+            'id' => $purchase->getId()
+           ]);
        }
 
 }
