@@ -1,6 +1,5 @@
 
-const clientSecret = '{{ clientSecret }}';
-const stripe = Stripe("pk_test_51KMU8XJf1V47Y2lBJgeCga0Bi8GWvTgCvhFDZpD83mQywwVvpHgYtFgHuAfLyZnZBQpT3BROyhNsTWJ2On5QJM0R00qLclcU3j");
+const stripe = Stripe(stripePublicKey);
 
 const elements = stripe.elements();
 
@@ -9,7 +8,7 @@ const style = {
     color: "#0570de",
     fontFamily: 'Arial, sans-serif',
     fontSmoothing: "antialiased",
-    fontSize: "25px",
+    fontSize: "16px",
     "::placeholder": {
     }
   },
@@ -43,8 +42,7 @@ form.addEventListener("submit", function (event) {
          console.log(result.error.message);
       } else { // the payment succeeded
          // on fait une redirection
-         window.location.href = "{{ url('app_purchase_payment_success', {'id':
-          purchase.id }) }}";
+         window.location.href = redirectAfterSuccesUrl;
       }
     });
   });

@@ -153,6 +153,10 @@ a.nav-link {
     align-items: center;   
 }
 
+
+
+
+
 /*********************************************************************************************************
           version desktop                        version desktop                        version desktop
 *******************************************************************************************************/
@@ -173,5 +177,14 @@ a.nav-link {
         flex-direction: row;
         align-items: center;
     }
+
+.indicationpaiement {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+
+
 
 }

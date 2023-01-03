@@ -6,11 +6,14 @@
 
 {% block body %}
 	<h1>Payez votre commande avec Stripe</h1>
-
+    <div class="indicationpaiement">
+    <p>numero carte bancaire</p>
+     <p> numéro à 3 chiffres et code postale</p>
+</div>
 	<form id="payment-form">
 		<div id="card-element"></div>
 		<!--Stripe.js injects the Link Authentication Element-->
-
+   
 		<button id="submit" class="btn btn-success">
 			<div class="spinner hidden" id="spinner"></div>
 			<span id="button-text">Payer avec Stripe</span>
@@ -26,8 +29,11 @@
 
 	<script>
    const clientSecret = '{{ clientSecret }}';
-	</script>
+   const stripePublicKey = '{{ stripePublicKey }}';
+	 const redirectAfterSuccesUrl = "{{ url('app_purchase_payment_success', {'id':
+          purchase.id }) }}";
+  </script>
 
-  <script src="/js/payment.js"> </script> 
+  <script src="/assets/js/payment.js"> </script> 
 
 {% endblock %}

@@ -9,7 +9,7 @@ use Stripe\PaymentIntent;
 
 
 class StripeService {
-    
+
     protected $secretKey;
     protected $publicKey;
     
@@ -17,6 +17,11 @@ class StripeService {
         $this->secretKey = $secretKey;
         $this->publicKey = $publicKey;
     }
+
+    public function getPublicKey() : string {
+        return $this->publicKey;
+    }
+
     public function getPaymentIntent(Purchase $purchase ){
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey($this->secretKey);
