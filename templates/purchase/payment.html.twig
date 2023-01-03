@@ -1,95 +1,81 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Paiement stripe
+	Paiement stripe
 {% endblock %}
 
 {% block body %}
-  <h1>Payez votre commande avec Stripe</h1>
+	<h1>Payez votre commande avec Stripe</h1>
 
- {# <form id="payment-form">
-      <div id="link-authentication-element">
-        <!--Stripe.js injects the Link Authentication Element-->
-      </div>
-      <div id="payment-element">
-        <!--Stripe.js injects the Payment Element-->
-      </div>
-      <button id="submit" class ="btn btn-success">
-        <div class="spinner hidden" id="spinner"></div>
-        <span id="button-text">Payer avec Stripe</span>
-      </button>
-      <p id="card-error" role="alert"></p>
-    </form> #}
+	<form id="payment-form">
+		<div id="card-element"></div>
+		<!--Stripe.js injects the Link Authentication Element-->
 
-  
-  <form id="payment-form">
-    <div id="payment-element"><!--Stripe.js injects the Payment Element--></div>
-    <button id="submit" class="btn btn-primary mt-2">
-      <span id="button-text">Payer</span>
-    </button>
-    <div id="payment-message" class="hidden"></div>
-  </form>
+		<button id="submit" class="btn btn-success">
+			<div class="spinner hidden" id="spinner"></div>
+			<span id="button-text">Payer avec Stripe</span>
+		</button>
+		<p id="card-error" role="alert"></p>
+	</form>
 
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-  <script src="https://js.stripe.com/v3/"></script>
-  <script>
-   {#const stripe = Stripe("pk_test_51KMU8XJf1V47Y2lBJgeCga0Bi8GWvTgCvhFDZpD83mQywwVvpHgYtFgHuAfLyZnZBQpT3BROyhNsTWJ2On5QJM0R00qLclcU3j");
-           elements = stripe.elements({ clientSecret }); #}
-       const clientSecret = '{{ clientSecret }}';
-    const stripe = Stripe("pk_test_51KMU8XJf1V47Y2lBJgeCga0Bi8GWvTgCvhFDZpD83mQywwVvpHgYtFgHuAfLyZnZBQpT3BROyhNsTWJ2On5QJM0R00qLclcU3j");       
-    function initialize() {
-      document
-        .querySelector("#payment-form")
-        .addEventListener("submit", handleSubmit);
+	{{ parent() }}
+	<script src="https://js.stripe.com/v3/"></script>
 
-      const elements = stripe.elements({ clientSecret });
-      const paymentElement = elements.create("payment");
+	<script>
 
-      paymentElement.mount("#payment-element");
+
+const clientSecret = '{{ clientSecret }}';
+const stripe = Stripe("pk_test_51KMU8XJf1V47Y2lBJgeCga0Bi8GWvTgCvhFDZpD83mQywwVvpHgYtFgHuAfLyZnZBQpT3BROyhNsTWJ2On5QJM0R00qLclcU3j");
+
+const elements = stripe.elements();
+
+const style = {
+  base: {
+    color: "#0570de",
+    fontFamily: 'Arial, sans-serif',
+    fontSmoothing: "antialiased",
+    fontSize: "25px",
+    "::placeholder": {
     }
+  },
+  invalid: {
+     fontFamily:'Arial, sans-serif',
+     color: "#fa755a",
+  }
+};
+console.log("coucous");
+const card = elements.create("card" , { style: style });
+// stripe injects an iframe into the Dom
+console.log(card);
+card.mount("#card-element");
+console.log(card.mount);
+card.on("change", function (event) { // disable the Pay button if there are no card details in the Element
+document.querySelector("button").disabled = event.empty;
+document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
+});
 
-    async function handleSubmit(e) {
-      e.preventDefault();
-      const {error} = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: "{{ url('cart_index') }}",
-        },
-      });
-    }
+const form = document.getElementById("payment-form");
 
-    async function checkStatus() {
-      const clientSecret = new URLSearchParams(window.location.search).get(
-        "payment_intent_client_secret"
-      );
-
-      if (!clientSecret) {
-        return;
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+   // Complete payment when the submit button is clicked
+   stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+      card: card
       }
-
-      const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
-
-      switch (paymentIntent.status) {
-        case "succeeded":
-          console.log("Payment succeeded!");
-          break;
-        case "processing":
-          console.log("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          console.log("Your payment was not successful, please try again.");
-          break;
-        default:
-          console.log("Something went wrong.");
-          break;
+      }).then(function (result) {
+      if (result.error) { // show error to customer
+         console.log(result.error.message);
+      } else { // the payment succeeded
+         // on fait une redirection
+         window.location.href = "{{ url('app_purchase_payment_success', {'id':
+          purchase.id }) }}";
       }
-    }
-
-    initialize();
-    checkStatus();
- </script>
+    });
+  });
+	</script>
 
 {% endblock %}
