@@ -10,8 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class SeanceController extends AbstractController
 {
     #[Route('/seance', name: 'app_seance')]
-    public function index(SeanceRepository $seanceRepository): Response
+    public function index($prenom, SeanceRepository $seanceRepository): Response
     {
+     // dd($prenom);
         return $this->render('seance/seance.html.twig', [
           //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
           'seances'=> $seanceRepository->findAll(),
