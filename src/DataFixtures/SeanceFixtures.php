@@ -10,22 +10,31 @@ use Faker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
- 
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+
 class SeanceFixtures extends Fixture
 {
-    
+    protected $slugger;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
+
     public function load(ObjectManager $manager): void
     {
      
         $faker = Faker\Factory::create('fr_FR');
         
        // les 3 categories
-         for($cat = 1; $cat <= 5; $cat++){
+         for($cat = 1; $cat <= 10; $cat++){
             $categorie = new Categorie();
-            $categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')));
+            $categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')))
             //$category->setStock($faker->numberBetween($min = 5, $max = 8));
-            $categorie->setDescription($faker->sentence());
-            
+                      ->setDescription($faker->sentence())
+                      ->setSlug(strtolower($this->slugger->slug($categorie->getTitle())));
             
            $manager->persist($categorie);
         }
@@ -37,10 +46,14 @@ class SeanceFixtures extends Fixture
             $seance = new Seance();
             //$seance->setName($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')));
             //$seance->setStock($faker->numberBetween($min = 5, $max = 8));
-            $seance->setPrice('5000');
-            $seance->setStock('12');
-            $seance->setDatedelaseance($faker->dateTimeInInterval('0 week', '+10 days'));
-            $seance->setCategorie($categorie);
+            $seance->setName("Seance n°$sean" . $this->slugger->slug($categorie->getTitle()))
+                   ->setPrice('5000')
+                   ->setQuantity('12')
+                   ->setDatedelaseance($faker->dateTimeInInterval('0 week', '+10 days'))
+                //  ->setSlug($this->slugger->slug($categorie->getTitle()));
+                   ->setSlug(strtolower($this->slugger->slug($seance->getName())))
+                   ->setCategorie($categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids'))))
+                   ->setShortDescription($faker->paragraph());
 
             $manager->persist($seance);
         }

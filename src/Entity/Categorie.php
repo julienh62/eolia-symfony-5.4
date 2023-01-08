@@ -19,11 +19,13 @@ class Categorie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+   
+   // #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Seance::class)]
+   // private Collection $seances;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Seance::class)]
-    private Collection $seances;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -47,7 +49,7 @@ class Categorie
         return $this;
     }
 
-    public function getDescription(): ?string
+ /*   public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -57,7 +59,7 @@ class Categorie
         $this->description = $description;
 
         return $this;
-    }
+    }  */
 
     /**
      * @return Collection<int, Seance>
@@ -88,4 +90,17 @@ class Categorie
 
         return $this;
     }
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
 }

@@ -10,7 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
 
 class PurchasePaymentSuccessController extends AbstractController {
     /**
@@ -44,10 +45,9 @@ class PurchasePaymentSuccessController extends AbstractController {
         //Lancer un evnmnt qui permet aux autres develloper de reagir à la
         //prise d'une commande
         //
-         
         $purchaseEvent = new PurchaseSuccessEvent($purchase);
-         $dispatcher->dispatch($purchaseEvent, 'purchase.success');
-        // dd($purchase);
+        $dispatcher->dispatch($purchaseEvent, 'purchase.success');
+         //dd($purchase);
         //jr redirige 
          // $this->addFlash('success', "Votre commande a bien été enregistrée et payée");
          return $this->redirectToRoute("app_purchase");

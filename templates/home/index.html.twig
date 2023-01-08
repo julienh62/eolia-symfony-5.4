@@ -14,10 +14,32 @@
                 });
             }); 
         </script> -->
+  <main class="container">
 
- <main class="container"> 
+      <h1>Nos activités </h1>
+      <div class="row">
+          {% for s in seances  %}
+          <div class="col">
+              <div class ="card">
+                  <img src="{{ s.picture }}"alt="char à voile">
+                  <div class="card-body">
+                      <h4 class="card-title">{{ s.name }} ({{ s.price / 100 }} &euro;)</h4>
 
-   <div class="slider">
+                      <span class="badge text-bg-secondary">{{ s.categorie.title }}</span>
+
+                      <p class="card-text">{{ s.shortDescription }}</p>
+                      <a href="{{ path('seance_show', {'categorie_slug': s.categorie.slug, 'slug': s.slug}) }}" class="btn btn-primary btn-sm">Détails</a>
+                      <a href="#" class="btn btn-success btn-sm">Ajouter</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+
+
+
+
+      <div class="slider">
                 <div><img src="{{ asset('assets/uploads/char-accueiltitregros1500.jpg')}}" alt="char à voile"></div>
                 <div><img src="{{ asset('assets/uploads/charpaysage.jpg')}}" alt="char enfant"></div>
                 <div><img src="{{ asset('assets/uploads/chardepart-1500.jpg')}}" alt="char-depart"></div>
