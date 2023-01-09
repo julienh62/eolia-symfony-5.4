@@ -146,13 +146,6 @@ public function create(Request $request, SluggerInterface $slugger, EntityManage
             'slug' => $seance->getSlug()
         ]);
         
-
-       // $seance = new Seance;
-//        $seance->setName($data['name'])
-//               ->setShortDescription($data['shortDescription'])
-//               ->setPrice($data['price'])
-//               ->setCategorie($data['categorie']);
-        
     }
 
 

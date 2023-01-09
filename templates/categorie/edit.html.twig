@@ -2,11 +2,11 @@
 {#theme bootratformulaire ajouté dans twig.yaml #}
 {#{{% form_theme formView 'bootstrap_4_layout.html.twig' %}} #}
 
-{% block title %} admin-edit{% endblock %}
+{% block title %} cat-edit{% endblock %}
 
 {% block body %}
 <main class="container">
-   <h1>Éditer une séance:  {{ seance.name }}</h1>
+   <h1>Éditer une catégorie:  {{ categorie.title }}</h1>
    
 
 
@@ -18,15 +18,12 @@
 
 <div class="row">
   <div class="col">
-     {{ form_row(formView.name) }}
-     {{ form_row(formView.price) }}
-     {{ form_row(formView.shortDescription) }} 
+     {{ form_row(formView.title) }}
+    
  </div>
   <div class="col">
-     {{ form_row(formView.quantity) }} 
-     {{ form_row(formView.categorie) }}
-     {{ form_row(formView.picture) }}
-     {{ form_row(formView.datedelaseance) }} 
+     {{ form_row(formView.slug) }} 
+
   </div>
 </div>
 
@@ -34,7 +31,7 @@
 
  <button type="submit" class="btn btn-primary">
  <i class="fas fa-save"> </i>
-        Editer une séance
+         Éditer une catégorie
  </button>
 {{ form_end(formView) }}
 </main>
