@@ -15,31 +15,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategorieController extends AbstractController
 {
     /**
-     * @Route("/char-adulte", name="app_char_a_voile")
+     * @Route("/admin/categorie", name="categorie_list")
      */
- //   public function index($title, CategorieRepository $categorieRepository)
- //   {
-  //      $title = "";
-      //  $categorie = $categorieRepository->findByExampleField($title);
-        //dd($categorie);
+    public function index(CategorieRepository $categorieRepository)
+    {
+
+        $categorie = $categorieRepository->findAll();
+
+        //   dd($categorie);
+
+        //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
 
 
-        //dd($categorie);
-        //
-        //       //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
 
+        return $this->render(
+            'categorie/categorie.html.twig',
+            [
+                //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
+                'categorie' => $categorie
+            ]
 
-        // dd($prenom);
-   //     return $this->render(
-     //       'categorie/categorie.html.twig',
-      //      [
-      //          //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
-      //          'categorie' => $categorie
-      //      ]
-
-      //  );
-  //  }
-
+        );
+    }
 
     /**
      * @Route("/admin/categorie/create", name="categorie_create")
@@ -109,5 +106,16 @@ class CategorieController extends AbstractController
             'categorie' => $categorie,
             'formView' => $formView
         ]);
+    }
+
+    /**
+     * @Route("/admin/categorie/{id<[0-9]+>}/delete", name="categorie_delete", methods= "GET")
+     */
+    public function deleteCat(Categorie $categorie, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($categorie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('categorie_list');
     }
 }

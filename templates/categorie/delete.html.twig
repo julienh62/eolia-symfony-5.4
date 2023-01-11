@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}cat-delete
+{% endblock %}
+
+{% block body %}
+<main class="container">
+<ul class="list-group">
+  <li class="list-group-item">id de la catégorie :{{ categorie.id }}</li>
+  <li class="list-group-item">Titre de la catégorie : {{ categorie.title }}</li>
+  <li class="list-group-item">Slug de la catégorie : {{ categorie.slug  }}</li>
+</ul>
+
+
+{#} {{ form(formView) }}#}
+
+{{ form_start(formView) }}
+
+{{ form_errors(formView) }}
+
+<div class="row">
+  <div class="col">
+     {{ form_row(formView.title) }}
+    
+ </div>
+  <div class="col">
+     {{ form_row(formView.slug) }} 
+
+  </div>
+</div>
+
+{#{{ form_widget(formView) }} #}
+
+ <button type="submit" class="btn btn-primary">
+ <i class="fas fa-save"> </i>
+         Supprimer la catégorie
+ </button>
+{{ form_end(formView) }}
+</main>
+
+{% endblock %}

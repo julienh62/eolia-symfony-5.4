@@ -5,12 +5,12 @@
 
 {% block body %}
 
-	<main class="container">
-		<h1>Choisir votre catégorie:
-		</h1>
-		{% for c in categorie %}
-		<p>{{  c.title }}</p>	
-          
-		{% endfor %}
-	</main>
+   <main class="container">
+      <h1>Choisir votre catégorie:
+      </h1>
+      {% for c in categorie %}
+      <p>    {{  c.title }} <a href="{{ path('categorie_delete', {'id': c.id}) }}"> supprimer </a> </p>
+{#          {{ path('delete_autor', {'id': autor.id} ) }}#}
+      {% endfor %}
+   </main>
 {% endblock %}
