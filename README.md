@@ -13,7 +13,8 @@ faites une copie du fichier .env et nommer le .env.local  pour recevoir la base 
 
 commenter la ligne ;
 DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=14&charset=utf8"
-décommentez la ligne ci dessous et mettez vos paramètres SQL 
+
+décommentez la ligne ci dessous et mettez vos paramètres SQL:
 (identifiant à la place de app, mdp à la place de !changeMe! et la bonne version sql):
 DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8&charset=utf8mb4"
 DATABASE_URL="mysql://identifiant:mot de passe@127.0.0.1:3306/app?serverVersion=numerodevotreversion&charset=utf8mb4"
