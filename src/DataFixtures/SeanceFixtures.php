@@ -33,7 +33,6 @@ class SeanceFixtures extends Fixture
             $categorie = new Categorie();
             $categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')))
             //$category->setStock($faker->numberBetween($min = 5, $max = 8));
-                      ->setDescription($faker->sentence())
                       ->setSlug(strtolower($this->slugger->slug($categorie->getTitle())));
             
            $manager->persist($categorie);

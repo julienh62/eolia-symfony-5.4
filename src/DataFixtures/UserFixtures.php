@@ -11,37 +11,36 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(
-        private UserPasswordHasherInterface $passwordEncoder
-    )
-    {
-
+    private $passwordEncoder;
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
+     {
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function load(ObjectManager $manager): void
     {
         $admin = new User();
-        $admin->setEmail('jhennebo@gmail.com');
-        $admin->setPassword(
-            $this->passwordEncoder->hashPassword($admin, 'azerty')
-        );
-        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setEmail('jhennebo@gmail.com')
+            ->setFullName('julien hennebo')
+            ->setPassword(
+                $this->passwordEncoder->hashPassword($admin, 'azerty')
+            )
+            ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($admin);
 
         $faker = Faker\Factory::create('fr_FR');
 
-        for($usr = 1; $usr <= 5; $usr++){
+        for ($usr = 1; $usr <= 5; $usr++) {
             $user = new User();
-            $user->setEmail($faker->email);
-           
-            $user->setPassword(
-                $this->passwordEncoder->hashPassword($user, 'secret')
-            );
+            $user->setEmail($faker->email)
+                ->setFullName($faker->name())
+                ->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
 
 
             $manager->persist($user);
-
         }
 
 

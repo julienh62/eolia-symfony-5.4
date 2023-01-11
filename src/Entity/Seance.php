@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
@@ -36,8 +38,11 @@ class Seance
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+   // #[Assert\Length(min: 4)]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
@@ -49,9 +54,6 @@ class Seance
     {
         $this->purchaseItems = new ArrayCollection();
     }
-
-
-
 
     public function getId(): ?int
     {

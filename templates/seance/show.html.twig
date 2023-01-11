@@ -1,32 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ seance.name }} {% endblock %}
+{% block title %}
+	{{ seance.name }}
+{% endblock %}
 
 {% block body %}
-<main class="container">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-        <li class="breadcrumb-item">
-        <a href="{{ path('seance_categorie', {'slug':seance.categorie.slug}) }}">{{  seance.name }}</a></li>
-        <li class="breadcrumb-item active">{{ seance.categorie.title }}</li>
-    </ol>
-    <h1>{{  seance.name }}
-    ({{  seance.price / 100 }} €) </h1>
+	<main class="container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<a href="{{ path('seance_categorie', {'slug':seance.categorie.slug}) }}">
+					{{ seance.categorie.title }}
+				</a>
+			</li>
+			<li class="breadcrumb-item active">
+				{{  seance.name }}</li>
+		</li>
+	</ol>
+	<h1>{{  seance.name }}
+		({{  seance.price / 100 }}
+		€)
+	</h1>
 
-    <div class="row">
-        <div class="col-4">
-            <img class="img-fluid" src="{{ seance.picture }}" alt="Image de {{ seance.name }}">
-        </div>
-        <div class="col-4">
-            <span class="badge badge-primary">{{ seance.categorie.title }}</span>
-            <p>{{ seance.shortDescription }}</p>
-            
-        </div>
-         <div class="col-4">
-            <p>Places disponibles: {{ seance.quantity }}</p>
-            <p>Date de la séance:  {{ seance.datedelaseance|date("d/m/Y") }}</p>
-            <a href="#" class="btn btn-success btn-lg>">🛒  Ajouter au panier</a>
-        </div>
-    </div>
-</main>
-{% endblock %}
+	<div class="row">
+		<div class="col-4">
+			<img class="img-fluid" src="{{ seance.picture }}" alt="Image de {{ seance.name }}">
+		</div>
+		<div class="col-4">
+			<span class="badge badge-primary">{{ seance.categorie.title }}</span>
+			<p>{{ seance.shortDescription }}</p>
+
+		</div>
+		<div class="col-4">
+			<p>Places disponibles:
+				{{ seance.quantity }}</p>
+			<p>Date de la séance:
+				{{ seance.datedelaseance|date("d/m/Y") }}</p>
+			<a href="#" class="btn btn-success btn-lg>">🛒  Ajouter au panier</a>
+		</div>
+	</div>
+</main>{% endblock %}

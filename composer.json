@@ -24,7 +24,9 @@
         "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
         "symfony/string": "5.4.*",
+        "symfony/translation": "5.4.*",
         "symfony/validator": "5.4.*",
+        "symfony/var-dumper": "5.4.*",
         "symfony/yaml": "5.4.*"
     },
     "require-dev": {

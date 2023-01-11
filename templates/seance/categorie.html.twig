@@ -8,10 +8,17 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
         <li class="breadcrumb-item active">{{ categorie.title }}</li>
+        	<li class="breadcrumb-item active"><a href="{{ path('seance_show', {'categorie_slug': seance.categorie.slug, 'slug': seance.slug}) }}">
+					{{ seance.name }}
+				</a>
+				</li>
+		</li>
     </ol>
   <h1> Catégorie:  {{ categorie.title }}</h1>
-  <div class="row">
-  {% for seance in categorie.seances %}
+  
+
+  
+    <div class="row">
      <div class="col-3">
         <div class ="card">
            <img src="{{ seance.picture }}" class="img-fluid" alt="char à voile">
@@ -22,11 +29,11 @@
 
                <p class="card-text">{{ seance.shortDescription }}</p>
                <a href="{{ path('seance_show', {'categorie_slug': seance.categorie.slug, 'slug': seance.slug}) }}" class="btn btn-primary btn-lg">Détails</a>
-               <a href="#" class="btn btn-success btn-lg">Ajouter</a>
+              {# <a href="#" class="btn btn-success btn-lg">Ajouter</a> #}
            </div>
         </div>
      </div>
    </div>
-  {% endfor %}
+  
 </main>
 {% endblock %}

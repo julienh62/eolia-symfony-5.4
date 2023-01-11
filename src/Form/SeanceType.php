@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SeanceType extends AbstractType
 {
@@ -26,12 +27,15 @@ class SeanceType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            'label'=> 'Nom du produit',
+            'label'=> 'Nom de la séance',
             'attr' => ['class' => 'form-control', 'placeholder' =>
             'Nom de la séance']
         ])
                 ->add('shortDescription', TextareaType::class, [
                     'label' => 'Description courte',
+                    'constraints' => [
+                        new NotBlank()
+                    ],
                     'attr' => [
                        // 'class' => 'form-control',
                         'placeholder' => 'Description de la séance'
@@ -39,6 +43,9 @@ class SeanceType extends AbstractType
                 ])
                 ->add('price', MoneyType::class, [
                     'label' => 'Prix de la seance',
+                    'constraints' => [
+                        new NotBlank()
+                    ],
                     'attr' => [
                        // 'class' =>'form-control',
                         'placeholder' =>'Prix de la séance'
@@ -47,6 +54,9 @@ class SeanceType extends AbstractType
                 ])
                 ->add('quantity', IntegerType::class, [
                         'label' => 'Quantité',
+                        'constraints' => [
+                            new NotBlank()
+                        ],
                         'attr' => [
                            // 'class' =>'form-control',
                             'placeholder' =>'Quantité'
@@ -54,6 +64,9 @@ class SeanceType extends AbstractType
                         ])
                 ->add('datedelaseance', DateType::class, [
                             'label' => 'Date',
+                            'constraints' => [
+                                new NotBlank()
+                            ],
                             'attr' => [
                                // 'class' =>'form-control',
                                 'placeholder' =>'Date'
@@ -65,6 +78,9 @@ class SeanceType extends AbstractType
                 ])
                 ->add('categorie', EntityType::class, [
                           'label' => 'Categorie',
+                          'constraints' => [
+                            new NotBlank()
+                        ],
                            'attr' => ['class' =>'form-control'],
                            'placeholder' => '--Choisir une catégorie--',
                            'class' => Categorie::class,

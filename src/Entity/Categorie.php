@@ -17,6 +17,7 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
    

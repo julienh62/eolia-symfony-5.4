@@ -39,7 +39,10 @@
     </head>
 
     <body>
+        
         {% include "_partials/_nav.html.twig" %} 
+
+        
       {# {% if app.user and app.user.isVerified == false %}  #} 
        <!--    <div class="alert alert-warning alert-dismissible" role="alert"> 
     
@@ -53,7 +56,8 @@
 
       {#  {% include "_partials/_flash.html.twig" %} #}
 
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
 
      {#  {% include "_partials/_footer.html.twig" %} #}
         
