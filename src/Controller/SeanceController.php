@@ -2,29 +2,31 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
-use App\Repository\SeanceRepository;
-use App\Repository\CategorieRepository;
-use App\Event\SeanceViewEvent;
 use App\Entity\Seance;
 use App\Form\SeanceType;
+use App\Entity\Categorie;
+use App\Event\SeanceViewEvent;
+use App\Repository\SeanceRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
-
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class SeanceController extends AbstractController
 {
+
     /**
      * @Route("/{slug}", name="seance_categorie", priority=-1)
      */
@@ -44,13 +46,43 @@ class SeanceController extends AbstractController
         //  $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
 
 
-        return $this->render('seance/categorie.html.twig', [
+        return $this->render('seance/seance_categorie.html.twig', [
             //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
             'slug' => $slug,
             'categorie' => $categorie,
             'seance' => $seance
         ]);
     }
+
+    /**
+ * @Route("/seancechar", name="charAll_show")
+ */
+public function showCharAll(CategorieRepository $categorieRepository, SeanceRepository $seanceRepository)
+{
+
+  //  $categorie = $categorieRepository->findOneBy([], []);
+  //  $seance = $seanceRepository->findOneBy([], []);
+    $categorie = $categorieRepository->findOneBy([], []);
+    $seance = $seanceRepository->findOneBy([], []);
+   //dd($categorie);
+
+           //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
+
+
+
+    return $this->render(
+        'seance/charAll.html.twig',
+        [
+            //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
+            'categorie' => $categorie,
+            'seance'  => $seance
+        ]
+
+    );
+}
+
+
+
 
 
     /**
@@ -101,6 +133,10 @@ class SeanceController extends AbstractController
 
         $seance = $seanceRepository->find($id);
 
+        if (!$seance) {
+            throw $this->createNotFoundException("la seance demandée n'existe pas");
+        }
+
         $form = $this->createForm(SeanceType::class, $seance);
 
         //pour afficher les données à modifier
@@ -111,10 +147,10 @@ class SeanceController extends AbstractController
         if ($form->isSubmitted()) {
 
             $em->flush();
-
+        
             return $this->redirectToRoute('seance_show', [
                 'categorie_slug' => $seance->getCategorie()->getSlug(),
-                'slug' => $seance->getSlug()
+               'slug' => $seance->getSlug()
             ]);
         }
 
@@ -172,7 +208,7 @@ class SeanceController extends AbstractController
 
 
         /**
-         * @Route("/seance", name="app_seance")
+         * @Route("/seance", name="seance_list")
         */
         public function index(SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
        {

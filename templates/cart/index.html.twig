@@ -3,7 +3,11 @@
 {% block title %}Votre panier{% endblock %}
 
 {% block body %}
-
+{#{{ dump(app.session)  }}  #}
+{#{{ dump(app.session.getBag('flashes').get('success'))  }}  #}
+{#{{ dump(app.flashes)  }} #}
+  
+     
     <section class="bg-light p-3">
         <h1>Votre panier</h1>
     </section>
@@ -55,7 +59,7 @@
             </tr>
         </tfoot>
     </table>
-       <a  class="btn btn-primary" href="{{path("app_seance")}}">
+       <a  class="btn btn-primary" href="{{path("seance_list")}}">
            Compléter votre panier
        </a>
     <hr>

@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Repository\SeanceRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Service\CartItemService;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 class CartService {
 
@@ -14,7 +15,20 @@ class CartService {
     public function __construct( SeanceRepository $seanceRepository, RequestStack $requestStack){
         $this->session = $requestStack->getSession();
         $this->seanceRepository = $seanceRepository;
+
+        /** @var FlashBag */  
+      //  $flashbag = $requestStack->getSession()->getBag('flashes');
+        //dd($requestStack->getSession()->getBag('flashes'));
+     //  $flashbag->add('success', "la séance a bien été ajouté au panier");
+       //$flashbag->add('warning', "Attention");
+
+     //  dump($flashbag->get('success'));
+       //dd($flashbag);
+
     }
+
+
+
 
     public function saveCart(array $cart){
         //pour vider le panier (aussi aprés chaque commande effectuée)
@@ -88,7 +102,7 @@ class CartService {
 
 
         $dataCart[] = new CartItemService($seance, $quantity);
-
+       // dd($dataCart);
          //  $total += ($seance->getPrice() * $quantity /100) ;
         }
 

@@ -11,6 +11,7 @@ use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -19,7 +20,8 @@ class CartController extends AbstractController
 {
      protected $cartService;
      protected $seanceRepository;
-      public function __construct(Cartservice $cartService,SeanceRepository $seanceRepository )
+     
+      public function __construct(Cartservice $cartService,SeanceRepository $seanceRepository)
       {
         $this->cartService = $cartService;
         $this->seanceRepository= $seanceRepository;
@@ -36,7 +38,7 @@ class CartController extends AbstractController
 
      $total = $this->cartService->getTotal();
 
-
+      //dd($dataCart);
         return $this->render('cart/index.html.twig', [
             'dataCarte' => $dataCart,
             'total' => $total,
@@ -48,9 +50,9 @@ class CartController extends AbstractController
     #[Route('/add/{id<[0-9]+>}', name: 'add')]
     public function add(int $id)
     {
-      //  dd($cartService)$this->cartService->add($id);
        $this->cartService->add($id);
-        
+       
+    //   dd($this->cartService);
         return $this->redirectToRoute('cart_index');
     }
     // code ajouté dans le cartservice
@@ -136,6 +138,7 @@ class CartController extends AbstractController
     {
 //        // on récupère le panier actuel
 //        $this->session->set("cart", []);
+
 
 
 

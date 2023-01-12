@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Seance;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\SeanceRepository;
@@ -11,9 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class CategorieController extends AbstractController
 {
+    protected $flashBagInterface;
+    public function __construct(FlashBagInterface $flashBagInterface)
+    {
+        $this->flashBagInterface = $flashBagInterface;
+    }
     /**
      * @Route("/admin/categorie", name="categorie_list")
      */
@@ -38,6 +45,8 @@ class CategorieController extends AbstractController
         );
     }
 
+
+
     /**
      * @Route("/admin/categorie/create", name="categorie_create")
      */
@@ -61,7 +70,8 @@ class CategorieController extends AbstractController
             $em->flush();
             //dd($seance);
 
-            return $this->redirectToRoute('app_home');
+            $this->flashBagInterface->add('success', "la catégorie a bien été créée");
+           // return $this->redirectToRoute('app_home');
         }
 
 
@@ -84,7 +94,13 @@ class CategorieController extends AbstractController
         SluggerInterface $slugger,
         EntityManagerInterface $em
     ) {
+
+
         $categorie = $categorieRepository->find($id);
+
+        if (!$categorie) {
+            throw $this->createNotFoundException("la catégorie demandée n'existe pas");
+        }
 
         $form = $this->createForm(CategorieType::class, $categorie);
 
@@ -96,8 +112,9 @@ class CategorieController extends AbstractController
         if ($form->isSubmitted()) {
 
             $em->flush();
-
-            return $this->redirectToRoute('app_home');
+            // $flashbag->add('success', "la catégorie a bien été modifiée");
+            $this->flashBagInterface->add('success', "la catégorie a bien été modifiée");
+            // return $this->redirectToRoute('app_home');
         }
 
         $formView = $form->createView();

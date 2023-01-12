@@ -2,43 +2,47 @@
 {#theme bootratformulaire ajouté dans twig.yaml #}
 {#{{% form_theme formView 'bootstrap_4_layout.html.twig' %}} #}
 
-{% block title %} admin-edit{% endblock %}
+	{% block title %}
+admin-edit
+{% endblock %}
 
-{% block body %}
-<main class="container">
-   <h1>Éditer une séance:  {{ seance.name }}</h1>
-   
+	{% block body %}
+		<main class="container"> <h1>Éditer une séances:
+			{{ seance.name }}</h1>
 
 
-{#} {{ form(formView) }}#}
+		{#} {{ form(formView) }}#}
 
-{{ form_start(formView) }}
+		{{ form_start(formView) }}
 
-{{ form_errors(formView) }}
+		{{ form_errors(formView) }}
 
-<div class="row">
-  <div class="col">
-     {{ form_row(formView.name) }}
-     {{ form_row(formView.price) }}
-     {{ form_row(formView.shortDescription) }} 
- </div>
-  <div class="col">
-     {{ form_row(formView.quantity) }} 
-     {{ form_row(formView.categorie) }}
-     {{ form_row(formView.picture) }}
-     {{ form_row(formView.datedelaseance) }} 
-  </div>
-</div>
+		<div class="row">
+			<div class="col">
+				{{ form_row(formView.name) }}
+				{{ form_row(formView.price) }}
+				{{ form_row(formView.shortDescription) }}
+			</div>
+			<div class="col">
+				{{ form_row(formView.quantity) }}
+				{{ form_row(formView.categorie) }}
+				{{ form_row(formView.picture) }}
+				{{ form_row(formView.datedelaseance) }}
+			</div>
+		</div>
 
-{#{{ form_widget(formView) }} #}
+		{#{{ form_widget(formView) }} #}
 
- <button type="submit" class="btn btn-primary">
- <i class="fas fa-save"> </i>
-        Editer une séance
- </button>
-{{ form_end(formView) }}
-</main>
+		<button type="submit" class="btn btn-primary">
+			<i class="fas fa-save"></i>
+			Editer une séance
+		</button>
+		{{ form_end(formView) }}
 
+		<div class="class="col-md-0 p-2 ps-md-0">
+			<a class="btn btn-secondary" href=" {{ path('seance_list') }} ">Voir toutes les séances</a>
+		</div>
+	</main>
 
 
 {% endblock  %}
