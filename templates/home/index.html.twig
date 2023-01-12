@@ -29,7 +29,7 @@
 
                       <p class="card-text">{{ s.shortDescription }}</p>
                       <a href="{{ path('seance_show', {'categorie_slug': s.categorie.slug, 'slug': s.slug}) }}" class="btn btn-primary btn-sm">Détails</a>
-                      <a href="#" class="btn btn-success btn-sm">Ajouter</a>
+                      <a href="{{ path('cart_add', {'id': s.id}) }}" class="btn btn-success btn-sm">Ajouter à votre panier</a>
                   </div>
               </div>
           </div>

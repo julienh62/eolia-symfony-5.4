@@ -22,18 +22,20 @@
                         <li class="nav-item">
 							<a class="dropdown-item" href="{{ path('seance_list') }}">Toutes les séances</a>
 						</li>
-                         <li class="nav-item">
-							<a class="dropdown-item" href="{#{{ path('app_char_a_voile') }}#}">Char à Voile</a>
-						</li>
+                        {# <li class="nav-item">
+							<a class="dropdown-item" href="{#{{ path('app_char_a_voile') }}#} {#}">Char à Voile</a>
+						</li> #}
 						{# on fait appel à une globals qu'on a créée dans les templates de twig.yaml  #}
 						{% for c in categorieRepository.findAll() %}
 							<li class="nav-item">
 								<a class="dropdown-item" href="#">{{ c.title }}</a>
 							</li>
-
 						{% endfor %}
 						
 						<li><hr class="dropdown-divider"></li>
+							<li class="nav-item">
+								<a class="dropdown-item" href="/">Accueil</a>
+							</li>
 
 					</ul>
 				</li>

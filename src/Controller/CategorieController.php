@@ -71,7 +71,8 @@ class CategorieController extends AbstractController
             //dd($seance);
 
             $this->flashBagInterface->add('success', "la catégorie a bien été créée");
-           // return $this->redirectToRoute('app_home');
+          
+            return $this->redirectToRoute('app_home');
         }
 
 
@@ -114,7 +115,8 @@ class CategorieController extends AbstractController
             $em->flush();
             // $flashbag->add('success', "la catégorie a bien été modifiée");
             $this->flashBagInterface->add('success', "la catégorie a bien été modifiée");
-            // return $this->redirectToRoute('app_home');
+           
+            return $this->redirectToRoute('app_home');
         }
 
         $formView = $form->createView();
