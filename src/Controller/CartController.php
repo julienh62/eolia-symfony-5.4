@@ -2,154 +2,163 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
+
 use App\Form\CartConfirmationType;
-use App\Repository\CategorieRepository;
-use App\Entity\Seance;
 use App\Repository\SeanceRepository;
 use App\Service\CartService;
+//use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 
-#[Route('/cart', name: 'cart_')]
+
 class CartController extends AbstractController
 {
-     protected $cartService;
-     protected $seanceRepository;
-     
-      public function __construct(Cartservice $cartService,SeanceRepository $seanceRepository)
-      {
-        $this->cartService = $cartService;
-        $this->seanceRepository= $seanceRepository;
-    
-      }
+    /**
+     * @var CartService
+     */
+    protected $cartService;
 
-    #[Route('/', name: 'index')]
+    /**
+     * @var SeanceRepository
+     */
+    protected $seanceRepository;
+
+    public function __construct(Cartservice $cartService, SeanceRepository $seanceRepository)
+    {
+        $this->cartService = $cartService;
+        $this->seanceRepository = $seanceRepository;
+
+    }
+
+
+    /**
+     * @Route("/cart/add/{id<[0-9]+>}", name="cart_add", requirements={"id":"\d+"})
+     */
+    public function add(int $id, Request $request)
+    {
+        $seance = $this->seanceRepository->find($id);
+
+        if (!$seance) {
+            throw $this->createNotFoundException("la seance demandée n'existe pas");
+        }
+
+        $this->cartService->add($id);
+
+       // $this->addFlash('success', "la séance a bien été ajoutée au panier");
+
+        if ($request->query->get('returnToCart')) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+
+        return $this->redirectToRoute('cart_index');
+
+    }
+
+   
+
+
+    /**
+     * @Route("/cart", name="cart_index")
+     */
     public function index()
     {
-    $form = $this->createForm(CartConfirmationType::class);
+        $form = $this->createForm(CartConfirmationType::class);
+        $detailedCart = $this->cartService->getDetailedCartItems();
+       // dd($detailedCart);
+        $total = $this->cartService->getTotal();
 
-
-     $dataCart = $this->cartService->getDataCart();
-
-     $total = $this->cartService->getTotal();
-
-      //dd($dataCart);
+        //dd($detailedCart);
         return $this->render('cart/index.html.twig', [
-            'dataCarte' => $dataCart,
+            'items' => $detailedCart,
             'total' => $total,
             'confirmationForm' => $form->createView()
-            ]);
-           // compact("dataCart", "total") );
+            // 12/01        'confirmationForm' => $form->createView()
+        ]);
+        // compact("dataCart", "total") );
     }
 
-    #[Route('/add/{id<[0-9]+>}', name: 'add')]
-    public function add(int $id)
-    {
-       $this->cartService->add($id);
-       
-    //   dd($this->cartService);
-        return $this->redirectToRoute('cart_index');
-    }
-    // code ajouté dans le cartservice
-    //  #[Route('/add/{id<[0-9]+>}', name: 'add')]
-    //    public function add(Seance $seance, SessionInterface $session)
-    //  {
-    // on récupère le panier actuel
-    //  $cart = $session->get("cart", []);
-    //     $id = $seance->getId();
-
-    //   if(!empty($cart[$id])){
-    //    $cart[$id]++;
-    //     }else{
-    //      $cart[$id] = 1;
-    //     }
-    //  on sauvegarde dans la session
-    //   $session->set("cart", $cart);
-    //     dd($session);
-    //  }
-
-
-    #[Route('/remove/{id<[0-9]+>}', name: 'remove')]
-    public function remove($id)
-    {
-        $this->cartService->remove($id);
-
-//        // on récupère le panier actuel
-//        $cart = $session->get("cart", []);
-//
-//        if(!empty($cart[$id])){
-//            if($cart[$id] >1){
-//                $cart[$id]--;
-//            }else{
-//                unset($cart[$id]);
-//            }
-//        }
-//        //on sauvegarde dans la session
-//        $session->set("cart", $cart);
-
-        return $this->redirectToRoute('cart_index');
-    }
-//    #[Route('/cart', name: 'cart_show')]
-//    public function show()
-//    {
-//        return $this->render('cart/index.html.twig');
-//    }
-
-
-
-
-
-    #[Route('/delete/{id<[0-9]+>}', name: 'delete')]
+    /**
+     *
+     * @Route("/cart/delete/{id<[0-9]+>}", name="cart_delete", requirements={"id":"\d+"})
+     */
     public function delete($id)
     {
-        $this->cartService->delete($id);
-//        // on récupère le panier actuel
-//        $cart = $session->get("cart", []);
-//
-//        if(!empty($cart[$id])){
-//            unset($cart[$id]);
-//        }
-//
-//        //on sauvegarde dans la session
-//        $session->set("cart", $cart);
+        $seance = $this->seanceRepository->find($id);
 
+        if (!$seance) {
+            throw $this->createNotFoundException("la seance $id demandée n'existe pas");
+        }
+
+        $this->cartService->remove($id);
+
+      //  $this->addFlash('success', "la séance a bien été supprimée du panier");
+
+
+        //   dd($this->cartService);
         return $this->redirectToRoute('cart_index');
+
+        // on récupère le panier actuel
+        //12/01  $cart = $this->session->get("cart", []);
+
+        //12/01   if (!empty($cart[$id])) {
+        //   unset($cart[$id]);
+        //   }
+
+        //12/01 on sauvegarde dans la session
+        //  $this->session->set("cart", $cart);
     }
 
-    #[Route('/delete', name: 'delete_all')]
+
+    /**
+     *
+     * @Route("/cart/decrement/{id<[0-9]+>}", name="cart_decrement",
+     *     requirements={"id": "\d+"})
+     */
+    public function decrement($id)
+    {
+        $seance = $this->seanceRepository->find($id);
+
+        if (!$seance) {
+            throw $this->createNotFoundException("la seance $id demandée n'existe pas
+            et ne peut etre décrémenté");
+        }
+
+        $this->cartService->decrement($id);
+
+      //  $this->addFlash('success', "la séance a bien été décrémenté du panier");
+
+
+        //   dd($this->cartService);
+        return $this->redirectToRoute('cart_index');
+
+
+    }
+
+
+
+
+
+   /**
+    * @Route("/cart/deleteAll", name="cart_delete_all")
+    */
     public function deleteAll()
     {
-        $this->cartService->deleteAll();
-//        $this->session->set("cart", []);
-//
-//        unset($cart);
-
-
-        return $this->redirectToRoute('cart_index');
-    }
-
-    #[Route('/display', name: 'display')]
-    public function display(SessionInterface $session)
-    {
-//        // on récupère le panier actuel
-//        $this->session->set("cart", []);
-
-
+       $this->cartService->removeAll();
 
 
 
         return $this->redirectToRoute('cart_index');
     }
-
-
-
-
 
 
 
 }
+
+
+
+
+

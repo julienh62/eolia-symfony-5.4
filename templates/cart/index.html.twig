@@ -7,45 +7,56 @@
 {#{{ dump(app.session.getBag('flashes').get('success'))  }}  #}
 {#{{ dump(app.flashes)  }} #}
   
-     
+     <main class="container">
     <section class="bg-light p-3">
         <h1>Votre panier</h1>
     </section>
-   {% if dataCarte | length > 0 %}
+ {% if items | length > 0 %}
 <table class="table">
         <thead>
             <tr>
-                <th>Produit</th>
+                <th>Séance</th>
                 <th>Prix</th>
                 <th>Quantité</th>
                 <th>Total</th>
-                <th>Actions</th>
+                <th>Action</th>
+{#                <th>Actions</th>#}
             </tr>
         </thead>
         <tbody>
        
-        {% for element in dataCarte %}  
+        {% for item in items %}  
                 <tr>
-                     <td>{{ element.seance.categorie.title }} </td>
-                    <td >{{ element.seance.price / 100 }}  €</td>
-                    <td>  {{ element.quantity  }}   </td>
-{#                    <td>  {{ element.quantity * element.seance.price / 100 }} </td>#}
-                    <td> {{ element.total }}</td>
+                     <td>
+                         {{ item.seance.categorie.title }}
+                     </td>
+                    <td >
+                        {{ item.seance.price  }}  €
+                    </td>
                     <td>
-                        <a href="{{path("cart_add", {id: element.seance.id})}}" class="btn btn-success">
-                             🛒 + 1
+                        {{ item.quantity }}
+                    </td>
+
+
+                    <td>
+                        {{ item.quantity * item.seance.price  }}
+                    </td>
+                    <td>
+                        <a href="{{path("cart_add", {'id': item.seance.id})}}" class="btn btn-success">
+                            🛒 + 1
                         </a>
-                        <a href="{{path("cart_remove", {id: element.seance.id})}}" class="btn btn-warning">
+                        <a href=" {{path("cart_decrement", {'id': item.seance.id})}}" class="btn btn-warning">
                           🛒 - 1
                         </a>
-                        <a href="{{path("cart_delete", {id: element.seance.id})}}" class="btn btn-danger">
-                          🛒 Supprimer
+                        <a href="{{path("cart_delete", {'id': item.seance.id})}}" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
 
            {% endfor %} 
         </tbody>
+
         <tfoot>
             <tr>
                 <td colspan="3">Total </td>
@@ -60,7 +71,7 @@
         </tfoot>
     </table>
        <a  class="btn btn-primary" href="{{path("seance_list")}}">
-           Compléter votre panier
+           Compléter votre paniers
        </a>
     <hr>
 
@@ -76,7 +87,7 @@
 
      {{ form_end(confirmationForm) }}
 
-   
+
        {% else %}
            <div class="d-flex align-items-center">
                <h2>Vous devez être connecté pour confirmer cette commande</h2>
@@ -88,9 +99,15 @@
            </div>
        {% endif %}
    {% else %}
-       <tr>
-           <td colspan="5" class="text-center">Votre panier est vide</td>
-       </tr>
+
+
+            <h2>Aucune séance dans votre panier</h2>
+
+
+           <a  class="btn btn-primary" href="{{path("seance_list")}}">
+               Retour aux séances
+           </a>
+       </main>
   {% endif %}
     
 {% endblock %}

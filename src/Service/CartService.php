@@ -4,8 +4,9 @@ namespace App\Service;
 
 use App\Repository\SeanceRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Service\CartItemService;
+use App\Service\CartItem;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService {
 
@@ -27,41 +28,71 @@ class CartService {
 
     }
 
-
-
-
-    public function saveCart(array $cart){
-        //pour vider le panier (aussi aprés chaque commande effectuée)
-        $this->session->set('cart', $cart);
+    protected function getCart() : array {
+        return $this->session->get('cart', []);
     }
 
-    public function empty(){
-        //pour vider le panier (aussi aprés chaque commande effectuée)
+    protected function saveCart(array $cart)
+    {
+        return $this->session->set('cart', $cart);
+    }
+
+    public function empty() {
         $this->saveCart([]);
     }
 
-    public function add(int $id) {
-        // on récupère le panier actuel
-        $cart = $this->session->get("cart", []);
+    public function add(int $id)
+    {
+        // retrouver le panier, rendre un tableau vide s'il ne le trouve pas
+      //  $cart = $this->get('cart', []);
+         $cart = $this->getCart();
 
-        if(!empty($cart[$id])){
-            $cart[$id]++;
-        }else{
-            $cart[$id] = 1;
+
+        if (!array_key_exists($id, $cart)) {
+            $cart[$id] = 0;
         }
-        //on sauvegarde dans la session
-        $this->session->set("cart", $cart);
+            $cart[$id]++;
 
+
+        // enregistrement du tableau mis à jour dans la session
+     //   $this->session->set('cart', $cart);
+        $this->saveCart($cart);
     }
 
-    //  public function getFullCart() : array {
-//
-//    //}
+    public function remove(int $id)
+    {
+        // on récupère le panier actuel
+        $cart = $this->getCart();
+
+        unset($cart[$id]);
+
+        $this->saveCart($cart);
+    }
+
+    public function decrement(int $id)
+    {
+        $cart = $this->getCart();
+
+        if (!array_key_exists($id, $cart)) {
+            return;
+        }
+
+        //si la seance est à 1 alors on supprime
+        if ($cart[$id] === 1) {
+            $this->remove($id);
+            return;
+        }
+        //sinon on le decremente
+        $cart[$id]--;
+
+        $this->saveCart($cart);
+    }
+
     public function getTotal():int {
 
         $total = 0;
 
-        foreach ($this->session->get('cart', []) as $id => $quantity) {
+        foreach ($this->getCart() as $id => $quantity) {
             $seance = $this->seanceRepository->find($id);
 
             // si une seance est supprimée, on continue la boucle
@@ -69,87 +100,37 @@ class CartService {
                 continue;
             }
 
-            $total += ($seance->getPrice() * $quantity / 100);
+            $total += $seance->getPrice() * $quantity;
         }
 
         return $total;
 
     }
 
-
     /**
-     *
      * @return CartItem[]
      */
-    public function getDataCart(): array {
-        // on fabrique les données
-        $dataCart = [] ;
-        $total = 0;
-//        $dataCart = $this->cartService->getTotal();
+    public function getDetailedCartItems(): array
+    {
+        $detailedCart = [];
 
-         foreach($this->session->get('cart', []) as $id => $quantity){
-           $seance = $this->seanceRepository->find($id);
-            // dd($seance);
-//            $dataCart[] = [
-//                'seance' => $seance,
-//                'quantity' => $quantity
-//            ];
+        foreach ($this->getCart() as $id => $quantity) {
+            $seance = $this->seanceRepository->find($id);
 
-             // si une seance est supprimée, on continue la boucle
-             if(!$seance){
-                 continue;
-             }
-
-
-        $dataCart[] = new CartItemService($seance, $quantity);
-       // dd($dataCart);
-         //  $total += ($seance->getPrice() * $quantity /100) ;
+        // si une seance est supprimée, on continue la boucle
+        if(!$seance){
+            continue;
         }
 
-        return $dataCart;
+            $detailedCart[] = new CartItem($seance, $quantity);
+    }
+        return $detailedCart;
 
     }
 
+     public function removeAll()
+     {
+         $this->session->set("cart", []);
+     }
 
-    public function remove(int $id)
-    {
-
-        // on récupère le panier actuel
-        $cart = $this->session->get("cart", []);
-
-        if(!empty($cart[$id])){
-            if($cart[$id] >1){
-                $cart[$id]--;
-            }else{
-                unset($cart[$id]);
-            }
-        }
-        //on sauvegarde dans la session
-        $this->session->set("cart", $cart);
-
-    }
-
-    public function delete(int $id)
-    {
-
-        // on récupère le panier actuel
-        $cart = $this->session->get("cart", []);
-
-        if (!empty($cart[$id])) {
-            unset($cart[$id]);
-        }
-
-        //on sauvegarde dans la session
-        $this->session->set("cart", $cart);
-    }
-    public function deleteAll()
-    {
-
-        $this->session->set("cart", []);
-
-        unset($cart);
-
-
-    }
-
-}
+  }

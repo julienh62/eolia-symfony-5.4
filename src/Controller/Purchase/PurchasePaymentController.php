@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PurchasePaymentController extends AbstractController{
     /**
      *
-     * @Route("/purchase/pay/{id<[0-9]+>}", name="app_purchase_payment_form")
+     * @Route("/purchase/pay/{id<[0-9]+>}", name="purchase_payment_form")
      * IsGranted("ROLE_USER", message="Vous devez être connecté pour payer une commande")
      */   
     public function showCardForm($id, PurchaseRepository $purchaseRepository, StripeService $stripeService){

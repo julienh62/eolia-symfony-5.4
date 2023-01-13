@@ -5,6 +5,7 @@ twig:
 
     globals:
       categorieRepository: "@App\\Repository\\CategorieRepository"
+      cartService: "@App\\Service\\CartService"
 
 when@test:
     twig:

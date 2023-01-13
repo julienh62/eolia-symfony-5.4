@@ -17,7 +17,9 @@
     </tr>
     </thead>
     <tbody>
-        {% for p in purchases  %}
+{#    {{ dump(purchases) }}#}
+
+        {% for p in purchases %}
           <tr>
               <td>{{ p.id  }}</td>
               <td>{{ p.address }}</td>
@@ -25,12 +27,12 @@
               <td>{{ p.city }}</td>
               <td> {{ p.createdAt|date("Y/m/d H:i") }} </td>
                <td>
-                <ul>  
+                <ul>
                    {% for item in p.purchaseItems  %}
                      <li>
-                        {{ item.quantity }} x {{ item.seanceName }} ({{ item.seancePrice /100 }}€ ) 
+                        {{ item.quantity }} x {{ item.seanceName }} ({{ item.seancePrice /100 }}€ )
                      </li>
-                   {%  endfor %}  
+                   {%  endfor %}
                 </ul>
               </td>
               <td>{{ p.total / 100 }}€</td>

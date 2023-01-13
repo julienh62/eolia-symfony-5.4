@@ -38,15 +38,18 @@ class Purchase
     #[ORM\Column(length: 255)]
     private ?string $status = 'PENDING';
 
+   // ajout portable 13-01
     #[ORM\ManyToOne(inversedBy: 'purchases')]
-    private ?User $user = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $createdAt = null;
+   private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: PurchaseItem::class, orphanRemoval: true)]
     private Collection $purchaseItems;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
+
+   
+    
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
@@ -141,17 +144,7 @@ class Purchase
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, PurchaseItem>
@@ -183,5 +176,18 @@ class Purchase
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
 
 }
+

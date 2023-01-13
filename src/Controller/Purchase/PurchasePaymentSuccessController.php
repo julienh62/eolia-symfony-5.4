@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class PurchasePaymentSuccessController extends AbstractController {
     /**
      *
-     * @Route("/purchase/terminate/{id<[0-9]+>}", name="app_purchase_payment_success")
+     * @Route("/purchase/terminate/{id<[0-9]+>}", name="purchase_payment_success")
      * @IsGranted("ROLE_USER")
      */
     public function success($id, PurchaseRepository $purchaseRepository, EntityManagerInterface $em,
@@ -45,11 +45,11 @@ class PurchasePaymentSuccessController extends AbstractController {
         //Lancer un evnmnt qui permet aux autres develloper de reagir à la
         //prise d'une commande
         //
-        $purchaseEvent = new PurchaseSuccessEvent($purchase);
-        $dispatcher->dispatch($purchaseEvent, 'purchase.success');
+       // $purchaseEvent = new PurchaseSuccessEvent($purchase);
+       // $dispatcher->dispatch($purchaseEvent, 'purchase.success');
          //dd($purchase);
         //jr redirige 
-         // $this->addFlash('success', "Votre commande a bien été enregistrée et payée");
+          $this->addFlash('success', "Votre commande a bien été enregistrée et payée");
          return $this->redirectToRoute("app_purchase");
 
 

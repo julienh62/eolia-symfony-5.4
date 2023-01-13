@@ -7,7 +7,7 @@ use App\Entity\Seance;
 //use Symfony\Component\HttpFoundation\RequestStack;
 
 
-class CartItemService
+class CartItem
 {
 
         public $seance;
@@ -21,7 +21,7 @@ class CartItemService
 
         public function getTotal() : int
         {
-              return $this->seance->getPrice() * $this->quantity / 100;
+              return $this->seance->getPrice() * $this->quantity;
         }
 
 }
