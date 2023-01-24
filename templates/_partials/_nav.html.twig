@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-light">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">
-			<img src="{{ asset('assets/uploads/logoeolia170px.png')}}" alt="char à voile Baie de Somme"/></a>
+			<img src="{{ asset('assets/uploads/logoeolia170px.png')}}" alt="char à voile Baie de Somme"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -22,15 +22,23 @@
                         <li class="nav-item">
 							<a class="dropdown-item" href="{{ path('seance_list') }}">Toutes les séances</a>
 						</li>
-                        {# <li class="nav-item">
-							<a class="dropdown-item" href="{#{{ path('app_char_a_voile') }}#} {#}">Char à Voile</a>
-						</li> #}
+                        <li class="nav-item">
+							<a class="dropdown-item" href="{{ path('seance_all_char') }} "> Char à Voile </a>
+						</li> 
+						<li class="nav-item">
+							<a class="dropdown-item" href="{{ path('charkidAll_show') }} "> Char à voile kids</a>
+						</li> 
+
+						<li class="nav-item">
+							<a class="dropdown-item" href="{{ path('cataAll_show') }} "> Catamaran</a>
+						</li> 
+						
 						{# on fait appel à une globals qu'on a créée dans les templates de twig.yaml  #}
-						{% for c in categorieRepository.findAll() %}
+					{#	{% for c in categorieRepository.findAll() %}
 							<li class="nav-item">
 								<a class="dropdown-item" href="#">{{ c.title }}</a>
 							</li>
-						{% endfor %}
+						{% endfor %}#}
 						
 						<li><hr class="dropdown-divider"></li>
 							<li class="nav-item">
@@ -78,7 +86,7 @@
 					<li class="nav-item">
 {#						CartService enregistré dans twig.yaml#}
 						<a class="btn btn-info btn-lg" href="{{ path('cart_index') }} ">🛒
-							({{ cartService.total }}
+							({{ cartService.total }})
 						</a>
 					</li>
 				{% else %}

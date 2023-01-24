@@ -45,8 +45,8 @@ class PurchasePaymentSuccessController extends AbstractController {
         //Lancer un evnmnt qui permet aux autres develloper de reagir à la
         //prise d'une commande
         //
-       // $purchaseEvent = new PurchaseSuccessEvent($purchase);
-       // $dispatcher->dispatch($purchaseEvent, 'purchase.success');
+          $purchaseEvent = new PurchaseSuccessEvent($purchase);
+          $dispatcher->dispatch($purchaseEvent, 'purchase.success');
          //dd($purchase);
         //jr redirige 
           $this->addFlash('success', "Votre commande a bien été enregistrée et payée");

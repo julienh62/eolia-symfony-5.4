@@ -63,4 +63,60 @@ class SeanceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+   /**
+     * @return Seance[] Returns an array of Seance objects
+     */
+    public function getAll()
+    {
+        return $this->getEntityManager()
+          ->createQuery(
+            'SELECT 1 FROM App:Seance 1'
+          )
+          ->getResult
+       ;
+    }
+
+    
+/**
+     * 
+     */
+    public function getAllCharKid()
+    {
+        return $this->createQueryBuilder('s')
+          ->where("s.categorie = 3 ")
+          
+          ->getQuery()
+          ->getResult()
+       ;
+    }
+
+
+ /**
+     * 
+     */
+    public function getAllCatamaran()
+    {
+        return $this->createQueryBuilder('s')
+          ->where("s.categorie = 2 ")
+          
+          ->getQuery()
+          ->getResult()
+       ;
+    }
+
+ /**
+     * 
+     */
+    public function getAllChar()
+    {
+        return $this->createQueryBuilder('s')
+          ->where("s.categorie = 1 ")
+          
+          ->getQuery()
+          ->getResult()
+       ;
+    }
+
+
 }

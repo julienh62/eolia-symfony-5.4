@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}admin-categorie
-{% endblock %}
+
 
 {% block body %}
-
-	<main class="container">
-		<h1>{{  categorie.title }}
-		</h1>
-	
-			<p>
-				
-			</p>
-      <p>
-				{{  seance.name }}
-			</p>
-
-	
-	</main>
+<main class="container">
+   <section class="row">
+        <div class="col-12">
+          
+           {% for seance in seances %}
+           <div class="container">
+             <div class="row align-items-start"> 
+                {% include "seance/_seance_categorie_card.html.twig" %}
+             </div>
+          </div>
+           
+          {% endfor %} 
+       </div>           
+   </section>
+</main>  
 {% endblock %}
