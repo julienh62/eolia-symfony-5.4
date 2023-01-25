@@ -44,7 +44,7 @@ class PurchasePaymentSuccessController extends AbstractController {
 
         //Lancer un evnmnt qui permet aux autres develloper de reagir à la
         //prise d'une commande
-        //
+        // purchase.success est le nom donné à l'evnmnt (dossier Event)
           $purchaseEvent = new PurchaseSuccessEvent($purchase);
           $dispatcher->dispatch($purchaseEvent, 'purchase.success');
          //dd($purchase);

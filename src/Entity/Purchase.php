@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PurchaseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PurchaseRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PurchaseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Purchase
 {
     public const STATUS_PENDING = 'PENDING';
@@ -45,15 +47,50 @@ class Purchase
     #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: PurchaseItem::class, orphanRemoval: true)]
     private Collection $purchaseItems;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
-
    
+
+   // #[ORM\Column(type: Types::DATE_MUTABLE)]
+   // private ?\DateTimeInterface $created_at = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $created_at = null;
     
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
     }
+
+    /**
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        //avant de persister  si pas de date donnée
+        //je donne nvlle date
+        if (empty($this->created_at)) {
+            $this->created_at = new DateTime();
+        }
+
+    }
+
+    /* preflush ne fonctionne pas Missing required param: amount
+    /**
+     *
+     *@ORM\PreFlush
+     */
+ /*   public function preFlush()
+    {
+     //   dd($this->purchaseItems);
+      $total = 0;
+
+       foreach ($this->purchaseItems as $item) {
+          $total += $item->getTotal();
+       }
+
+       $this->total = $total;
+    }  */
+
 
     public function getId(): ?int
     {

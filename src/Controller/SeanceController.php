@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
-
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
@@ -132,7 +130,7 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
     /**
      * @Route("/{categorie_slug}/{slug}", name="seance_show", priority=-1)
      */
-    public function show($slug, SeanceRepository $seanceRepository)
+    public function show($slug, SeanceRepository $seanceRepository, EventDispatcherInterface $dispatcher)
     {
         /*   dd($urlGenerator->generate('app_seance_categorie', [
             'slug' => 'test-de-slug'
@@ -144,8 +142,12 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
         if (!$seance) {
             throw $this->createNotFoundException("la seance demandée n'existe pas");
         }
-
-        //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
+//Lancer un evnmnt qui permet aux autres develloper de reagir à la
+        //vue d'une seance détail
+        // seanceview est le nom donné à l'evnmnt (dossier Event)
+        $seanceViewEvent = new SeanceViewEvent($seance);
+        $dispatcher->dispatch($seanceViewEvent, 'seance.view');
+     
 
 
         // dd($prenom);

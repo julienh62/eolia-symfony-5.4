@@ -19,13 +19,15 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface
    }
    public static function getSubscribedEvents() :array
     {
+      //je dis au dispatcher ; à tout moment si tu reçois 
+      //l'évnmnt purchase.success alors tu appelles  sendSuccessEmail
        return [
          'purchase.success' => 'sendSuccessEmail'
        ];
     }
    public function sendSuccessEmail(PurchaseSuccessEvent $purchaseSuccessEvent)
    {
-  dd($purchaseSuccessEvent);
+ //dd($purchaseSuccessEvent);
      $this->logger->info("Email envoyé pour la commande n°" .
        $purchaseSuccessEvent->getPurchase()->getId());
    }

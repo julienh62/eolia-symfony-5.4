@@ -42,14 +42,14 @@
 	<body>
 
 		{% include "_partials/_nav.html.twig" %}
-		
+		<main class="container">
 			{% for rubrique, messages in app.flashes  %}
 				<div class="alert alert-{{ rubrique }}">
 					{% for message in messages %}
 						<p>{{ message }}</p>
 					{% endfor %}
 				</div>
-
+</main>
 			{% endfor %}
 			{# {% if app.user and app.user.isVerified == false %}  #}
 		<!--    <div class="alert alert-warning alert-dismissible" role="alert"> 

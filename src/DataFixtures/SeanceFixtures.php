@@ -31,7 +31,7 @@ class SeanceFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
         
        // les 3 categories
-         for($cat = 1; $cat <= 10; $cat++){
+         for($cat = 1; $cat <= 6; $cat++){
             $categorie = new Categorie();
             $categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')))
             //$category->setStock($faker->numberBetween($min = 5, $max = 8));
@@ -46,13 +46,13 @@ class SeanceFixtures extends Fixture
             $seance = new Seance();
             //$seance->setName($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids')));
             //$seance->setStock($faker->numberBetween($min = 5, $max = 8));
-            $seance->setName("Seance n°$sean" . $this->slugger->slug($categorie->getTitle()))
+            $seance->setName("Seance-n°$sean" . $this->slugger->slug($categorie->getTitle()))
                    ->setPrice('5000')
                    ->setQuantity('12')
                   ->setPicture('https://127.0.0.1:8000/assets/uploads/char-accueiltitregros1500.jpg')
                  ->setDatedelaseance($faker->dateTimeInInterval('0 week', '+10 days'))
                 //  ->setSlug($this->slugger->slug($categorie->getTitle()));
-                   ->setSlug(strtolower($this->slugger->slug($seance->getName())))
+                   ->setSlug(strtolower($this->slugger->slug($seance->getTitle())))
                    ->setCategorie($categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids'))))
                    ->setShortDescription($faker->paragraph());
 
