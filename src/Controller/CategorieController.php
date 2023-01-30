@@ -36,7 +36,7 @@ class CategorieController extends AbstractController
 
 
         return $this->render(
-            'categorie/categorie.html.twig',
+            'admin/categorie/categorie.html.twig',
             [
                 //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
                 'categorie' => $categorie
@@ -79,7 +79,7 @@ class CategorieController extends AbstractController
 
         $formView = $form->createView();
 
-        return $this->render('categorie/create.html.twig', [
+        return $this->render('admin/categorie/create.html.twig', [
             'formView' => $formView
         ]);
     }
@@ -121,7 +121,7 @@ class CategorieController extends AbstractController
 
         $formView = $form->createView();
 
-        return $this->render('categorie/edit.html.twig', [
+        return $this->render('/admin/categorie/edit.html.twig', [
             'categorie' => $categorie,
             'formView' => $formView
         ]);

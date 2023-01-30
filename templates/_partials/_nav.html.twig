@@ -75,7 +75,8 @@
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				{% if app.user %}
 					<li class="nav-item">
-						<a class="btn btn-success btn-lg" href="#">MON COMPTE</a>
+						<a class="btn btn-success btn-lg" href="{{ path('personal_details') }}">MON COMPTE</a>
+						
 					</li>
 					<li class="nav-item">
 						<a class="btn btn-primary btn-lg" href="{{ path('app_purchase') }}">COMMANDES</a>
@@ -86,7 +87,7 @@
 					<li class="nav-item">
 {#						CartService enregistré dans twig.yaml#}
 						<a class="btn btn-info btn-lg" href="{{ path('cart_index') }} ">🛒
-							({{ cartService.total }})
+							({{ cartService.total | amount }})
 						</a>
 					</li>
 				{% else %}
@@ -103,3 +104,4 @@
 	</div>
 
 </nav>
+

@@ -2,7 +2,7 @@
            <img src="{{ seance.picture }}" class="img-fluid" alt="char à voile">
 
     <div class="card-body">
-        <h4 class="card-title">{{ seance.name }} ({{ seance.price / 100 }} &euro;)</h4>
+        <h4 class="card-title">{{ seance.name }} ({{ seance.price | amount }} )</h4>
 
         <span class="badge text-bg-secondary">{{ seance.categorie.title }}</span>
 

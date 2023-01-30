@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}admin-categorie
+{% endblock %}
+
+{% block body %}
+{% include "_partials/_nav_admin.html.twig" %}
+   <main class="container">
+      <h1>Liste des séances
+      </h1>
+   
+
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Séances</th>
+                <th> Date  </th>
+                <th> Disponibité </th>
+                <th> Action </th>
+                <th> Modifier </th>
+            </tr>
+        </thead>
+        <tbody>
+       
+       {% for s in seances %}
+                <tr>
+                     <td>
+                       {{ s.name }} 
+                     </td>
+                     <td> 
+                     {{ s.datedelaseance|date("d/m/Y") }}
+                     </td>
+                     <td> 
+                     {{ s.quantity  }}
+                      </td>
+                      <td>
+                    <a class = "btn btn-success" href="{{ path('seance_edit', {'id': s.id}) }}"> modifier </a>
+                   </td>
+                    <td >
+                    <a class = "btn btn-warning" href="{{ path('seance_delete', {'id': s.id}) }}"> supprimer </a>
+                   </td>
+                   
+
+           {% endfor %} 
+        </tbody>
+
+ 
+    </table>
+    
+   </main>
+{% endblock %}

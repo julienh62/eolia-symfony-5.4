@@ -30,11 +30,13 @@ class PurchasePersister
     public function storePurchase(Purchase $purchase)
     {
         // 6 lier la purchase avec l'utilisateur
-        $purchase->setUser($this->security->getUser())
+        $purchase->setUser($this->security->getUser());
            // ->setCreatedAt(new DateTime())
            //la date est dans entité purchase avec HasLifeCycleCallback function prepersist()
-           //
-           ->setTotal($this->cartService->getTotal());
+
+           //le total est dans entité purchase avec la fonction preFlush
+           // et aussi dans PurchaseItem (function setPurchase modifiée)
+        //  ->setTotal($this->cartService->getTotal());
 
 
         //  dd($purchase);

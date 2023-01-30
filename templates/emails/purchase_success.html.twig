@@ -1,0 +1,29 @@
+<h1> Votre commande n° {{ purchase.id  }} est bien enregistrée et payée </h1>
+
+ <p> Merci à vous {{ user.fullName }} </p>
+<table>
+  <thead>
+    <th> Seance </th>
+    <th> Quantité  </th>
+    <th> P.Unit  </th>
+    <th>  Total </th>
+  </thead>
+
+  <tbody>
+     {% for item in purchase.purchaseItems %}
+       <tr>
+         <td> {{ item.seanceName }}  </td>
+         <td> {{ item.quantity }}  </td>
+         <td> {{ item.seancePrice / 100 }} € </td>
+         <td> {{ item.total / 100  }}  € </td>
+       </tr>
+      {% endfor %}
+  </tbody>
+
+  <tfoot>  
+    <tr>
+      <td coldspan="3"> Total </td>
+      <td>{{ purchase.total / 100 }} € </td>
+    </tr>
+  </tfoot>
+</table>

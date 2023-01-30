@@ -52,7 +52,7 @@ class SeanceFixtures extends Fixture
                   ->setPicture('https://127.0.0.1:8000/assets/uploads/char-accueiltitregros1500.jpg')
                  ->setDatedelaseance($faker->dateTimeInInterval('0 week', '+10 days'))
                 //  ->setSlug($this->slugger->slug($categorie->getTitle()));
-                   ->setSlug(strtolower($this->slugger->slug($seance->getTitle())))
+                   ->setSlug(strtolower($this->slugger->slug($seance->getName())))
                    ->setCategorie($categorie->setTitle($faker->randomElement($array = array ('Char à voile','Catamaran','Char à voile kids'))))
                    ->setShortDescription($faker->paragraph());
 

@@ -119,7 +119,13 @@ a.nav-link {
     margin-right: 1em;
 }
 
-
+.admin-navbar {
+    background-color: #6c757d;
+    color:#eaf4fe;
+    border-radius: 0.5rem;
+    max-width: 800px;
+    margin:3rem;
+}
 
 
 /*////////////////////////////////////// 
@@ -167,16 +173,34 @@ a.nav-link {
     flex-direction: column;
     align-items: center;
 }
+/****************************************************
+                         page paiement stripe
+**************************************************/
+#payment-form {
+    max-width: 300px;
+}
 
 
-
-
-
+/*********************************************************************************************************
+          version tablette                       version tablette                       version tablette
+*******************************************************************************************************/
+@media screen and (min-width:750px) {
+#payment-form {
+    max-width: 600px;
+}
+}
 /*********************************************************************************************************
           version desktop                        version desktop                        version desktop
 *******************************************************************************************************/
 
 @media screen and (min-width:1200px) {
+
+
+
+    .admin-navbar {
+        display: flex;
+        justify-content: space-evenly;
+    }
 
     .container {
         width: 85%;
@@ -210,5 +234,7 @@ a.nav-link {
         max-width: 500px;
     }
 
-
+    #payment-form {
+        max-width: 1200px;
+    }
 }

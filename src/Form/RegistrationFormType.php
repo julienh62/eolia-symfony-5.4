@@ -25,6 +25,14 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'E-Mail'
             ])
+          ->add('fullName', TextType::class, [
+              'attr' => [
+                   'class' => 'form-control'
+               ],'label' => 'Nom Complet'
+         ])
+
+
+
        //     ->add('lastname', TextType::class, [
        ////         'attr' => [
        //             'class' => 'form-control'

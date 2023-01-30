@@ -12,10 +12,12 @@ class CartService {
 
     protected $session;
     protected $seanceRepository;
+    protected $requestStack;
 
-    public function __construct( SeanceRepository $seanceRepository, RequestStack $requestStack){
-        $this->session = $requestStack->getSession();
+    public function __construct( SeanceRepository $seanceRepository, RequestStack $requestStack, SessionInterface $session){
+        $this->session = $session;
         $this->seanceRepository = $seanceRepository;
+        $this->requestStack = $requestStack;
 
         /** @var FlashBag */  
       //  $flashbag = $requestStack->getSession()->getBag('flashes');

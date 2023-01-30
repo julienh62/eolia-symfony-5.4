@@ -31,7 +31,7 @@
                          {{ item.seance.categorie.title }}
                      </td>
                     <td >
-                        {{ item.seance.price  }}  €
+                        {{ item.seance.price | amount }}  
                     </td>
                     <td>
                         {{ item.quantity }}
@@ -39,7 +39,8 @@
 
 
                     <td>
-                        {{ item.quantity * item.seance.price  }}
+                        {#{{ item.quantity * item.seance.price / 100 }}#}
+                        {{ item.total | amount }}
                     </td>
                     <td>
                         <a href="{{path("cart_add", {'id': item.seance.id})}}" class="btn btn-success">
@@ -60,7 +61,7 @@
         <tfoot>
             <tr>
                 <td colspan="3">Total </td>
-                <td class="text-start">{{ total }} €</td>
+                <td class="text-start">{{ total | amount }} </td>
                 <td>
                     <a href="{{path("cart_delete_all")}}" class="btn btn-danger">
                            Vider le panier
@@ -71,10 +72,10 @@
         </tfoot>
     </table>
        <a  class="btn btn-primary" href="{{path("seance_list")}}">
-           Compléter votre paniers
+           Compléter votre panier
        </a>
     <hr>
-
+        {# {{ dump(app.user.roles) }} #}
        {% if app.user %}
      <h2>Confirmez votre commande en remplissant ce formulaire</h2>
      {{ form_start(confirmationForm, {'action': path('app_purchase_confirm')}) }}

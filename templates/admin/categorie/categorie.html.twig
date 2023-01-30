@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}admin-categorie
+{% endblock %}
+
+{% block body %}
+{% include "_partials/_nav_admin.html.twig" %}
+   <main class="container">
+      <h1>Liste des catégories
+      </h1>
+   
+
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Catégorie</th>
+                <th> Action </th>
+                <th> Modifier </th>
+            </tr>
+        </thead>
+        <tbody>
+       
+       {% for c in categorie %}
+                <tr>
+                     <td>
+                       {{  c.title }} 
+                     </td>
+                     <td >
+                    <a class = "btn btn-info" href="{{ path('categorie_edit', {'id': c.id}) }}"> modifier </a>
+                   </td>
+                    <td >
+                    <a class = "btn btn-info" href="{{ path('categorie_delete', {'id': c.id}) }}"> supprimer </a>
+                   </td>
+                   
+
+           {% endfor %} 
+        </tbody>
+
+ 
+    </table>
+    
+   </main>
+{% endblock %}

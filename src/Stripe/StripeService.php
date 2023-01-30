@@ -25,7 +25,7 @@ class StripeService {
     public function getPaymentIntent(Purchase $purchase ){
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey($this->secretKey);
-        
+      //  dd($purchase);
         return PaymentIntent::create([
             'amount' =>$purchase->getTotal(),
             'currency' => 'eur'

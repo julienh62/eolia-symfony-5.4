@@ -20,8 +20,8 @@
 		</li>
 	</ol>
 	<h1>{{  seance.name }}
-		({{  seance.price / 100 }}
-		€)
+		({{ seance.price | amount }})
+		
 	</h1>
 
 	<div class="row">
@@ -37,7 +37,8 @@
 			<p>Places disponibles:
 				{{ seance.quantity }}</p>
 			<p>Date de la séance:
-				{{ seance.datedelaseance|date("d/m/Y") }}</p>
+				{{ seance.datedelaseance|date("d/m/Y") }}
+				</p>
 			<a href="{{ path('cart_add', {'id': seance.id}) }}" class="btn btn-success btn-lg>">🛒  Ajouter au panier</a>
 		</div>
 	</div>

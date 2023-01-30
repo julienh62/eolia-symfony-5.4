@@ -60,10 +60,7 @@ class Purchase
         $this->purchaseItems = new ArrayCollection();
     }
 
-    /**
-     *
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function prePersist()
     {
         //avant de persister  si pas de date donnée
@@ -74,12 +71,9 @@ class Purchase
 
     }
 
-    /* preflush ne fonctionne pas Missing required param: amount
-    /**
-     *
-     *@ORM\PreFlush
-     */
- /*   public function preFlush()
+    
+    #[ORM\PreFlush]
+    public function preFlush()
     {
      //   dd($this->purchaseItems);
       $total = 0;
@@ -89,7 +83,7 @@ class Purchase
        }
 
        $this->total = $total;
-    }  */
+    }  
 
 
     public function getId(): ?int
