@@ -24,11 +24,12 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class SeanceController extends AbstractController
 {
-
+    
+    /** descriptif d'une catégorie */
     /**
-     * @Route("/{slug}", name="seance_categorie", priority=-1)
+     * @Route("/{slug}", name="describ_categorie", priority=-1)
      */
-    public function categorie($slug, SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
+   public function categorie($slug, SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
     {
         $categorie = $categorieRepository->findOneBy([
             'slug' => $slug
@@ -41,21 +42,27 @@ class SeanceController extends AbstractController
         if (!$categorie) {
             throw $this->createNotFoundException("la categorie //demandée n'existe pas");
         }
-        //  $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
 
 
-        return $this->render('seance/seance_categorie.html.twig', [
+        return $this->render('seance/describ_categorie.html.twig', [
             //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
             'slug' => $slug,
             'categorie' => $categorie,
-            'seance' => $seance
+            'seances' => $seance
         ]);
     }
+    
 
-    /**
+
+
+
+
+
+    /*affiche toutes les séances char a voile adulte
+    /** 
  * @Route("/seancechar", name="charAll_show")
  */
-public function showCharAll(CategorieRepository $categorieRepository, SeanceRepository $seanceRepository)
+/*public function showCharAll(CategorieRepository $categorieRepository, SeanceRepository $seanceRepository)
 {
 
    $seance = $seanceRepository->findBySlug('char-a-voile');
@@ -69,45 +76,9 @@ public function showCharAll(CategorieRepository $categorieRepository, SeanceRepo
         ]
 
     );
-}
-   /**
-   * @Route("/seancecharkid", name="charkidAll_show")
-   */
-public function listSeanceByCharKid( SeanceRepository $seanceRepository)
-{
+}  */
 
-   $seance = $seanceRepository->getAllCharKid();
-
-
-    return $this->render(
-        'seance/listByCat.html.twig',
-        [
-   
-            'seances'  => $seance
-        ]
-
-    );
-}
-   /**
- * @Route("/seancecatamaran", name="cataAll_show")
- */
-public function listSeanceByCatamaran( SeanceRepository $seanceRepository)
-{
-
-   $seance = $seanceRepository->getAllCatamaran();
-
-
-    return $this->render(
-        'seance/listByCat.html.twig',
-        [
-   
-            'seances'  => $seance
-        ]
-
-    );
-}
-
-   /**
+  /**
  * @Route("/seanceallchar", name="seance_all_char")
  */
 public function listSeanceByChar( SeanceRepository $seanceRepository)
@@ -127,14 +98,122 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
 }
 
 
+
+  /**
+   * @Route("/char-a-voile", name="char_voile")
+   */
+  public function SeanceByChar(SeanceRepository $seanceRepository)
+  {
+  
+     $seance = $seanceRepository->getDescribChar();
+     
+  
+  //dd($seance);
+      return $this->render(
+          'seance/describ_categorie.html.twig',
+          [
+     
+              'seances'  => $seance
+          ]
+  
+      );
+  } 
+
+
+
+
+   /**
+   * @Route("/seancecharkid", name="charkidAll_show")
+   */
+public function listSeanceByCharKid( SeanceRepository $seanceRepository)
+{
+
+   $seance = $seanceRepository->getAllCharKid();
+
+
+    return $this->render(
+        'seance/listByCat.html.twig',
+        [
+   
+            'seances'  => $seance
+        ]
+
+    );
+}
+
+
+  /**
+   * @Route("/char-a-voile-kids", name="char_kids")
+   */
+  public function SeanceByCharKid(SeanceRepository $seanceRepository)
+  {
+  
+     $seance = $seanceRepository->getDescribCharKid();
+     
+  
+  //dd($seance);
+      return $this->render(
+          'seance/describ_categorie.html.twig',
+          [
+     
+              'seances'  => $seance
+          ]
+  
+      );
+  } 
+
+
+
+
+   /**
+ * @Route("/seancescatamaran", name="cataAll_show")
+ */
+public function listSeanceByCatamaran( SeanceRepository $seanceRepository)
+{
+
+   $seance = $seanceRepository->getAllCatamaran();
+
+
+    return $this->render(
+        'seance/listByCat.html.twig',
+        [
+   
+            'seances'  => $seance
+        ]
+
+    );
+}
+
+ /**
+   * @Route("/catamaran", name="char_cata")
+   */
+public function SeanceByCata(SeanceRepository $seanceRepository)
+  {
+  
+     $seance = $seanceRepository->getDescribCata();
+     
+  
+  //dd($seance);
+      return $this->render(
+          'seance/describ_categorie.html.twig',
+          [
+     
+              'seances'  => $seance
+          ]
+  
+      );
+    }
+
+ 
+
+
+
     /**
      * @Route("/{categorie_slug}/{slug}", name="seance_show", priority=-1)
      */
     public function show($slug, SeanceRepository $seanceRepository, EventDispatcherInterface $dispatcher)
     {
-        /*   dd($urlGenerator->generate('app_seance_categorie', [
-            'slug' => 'test-de-slug'
-       ]));*/
+        
         $seance = $seanceRepository->findOneBy([
             'slug' => $slug
         ]);
@@ -164,9 +243,6 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
 
 
 
-   
-
-
         /**
          * @Route("/seance", name="seance_list")
         */
@@ -176,12 +252,9 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
             $categorie = $categorieRepository->findAll();
        //  dd($seance);
        //  dd($categorie);
-    //
-    //       //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
-    
-    
-            // dd($prenom);
-           return $this->render('seance/seance.html.twig', [
+ 
+  
+           return $this->render('seance/allSeance.html.twig', [
                     //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
                     'seances' => $seance,
                     'categorie' => $categorie
@@ -190,7 +263,5 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
             );
     
        }
-
-
 
 }

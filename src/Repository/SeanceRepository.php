@@ -83,13 +83,14 @@ class SeanceRepository extends ServiceEntityRepository
      */
     public function getAllCharKid()
     {
+    
         return $this->createQueryBuilder('s')
           ->where("s.categorie = 3 ")
-          
           ->getQuery()
           ->getResult()
        ;
     }
+
 
 
  /**
@@ -118,5 +119,52 @@ class SeanceRepository extends ServiceEntityRepository
        ;
     }
 
+
+/**
+     * 
+     */
+    public function getDescribCharKid()
+    {
+        $limit= 1;
+        return $this->createQueryBuilder('s')
+          
+          ->where("s.categorie = 3 ")
+          ->setMaxResults( $limit )
+          ->getQuery()
+          ->getResult()
+       ;
+    }
+
+
+/**
+     * 
+     */
+    public function getDescribChar()
+    {
+        $limit= 1;
+        return $this->createQueryBuilder('s')
+          
+          ->where("s.categorie = 1 ")
+          ->setMaxResults( $limit )
+          ->getQuery()
+          ->getResult()
+       ;
+    }
+
+
+    /**
+     * 
+     */
+    public function getDescribCata()
+    {
+        $limit= 1;
+        return $this->createQueryBuilder('s')
+          
+          ->where("s.categorie = 2 ")
+          ->setMaxResults( $limit )
+          ->getQuery()
+          ->getResult()
+       ;
+    }
 
 }

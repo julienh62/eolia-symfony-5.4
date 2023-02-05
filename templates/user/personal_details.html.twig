@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}admin-categorie
+{% endblock %}
+
+{% block body %}
+
+   <main class="container">
+      <h1>Mon compte
+      </h1>
+   
+
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th> Email </th>
+            </tr>
+        </thead>
+        <tbody>
+       
+    
+                <tr>
+                     <td>
+                       {{ user.fullName }} 
+                     </td>
+               
+                     <td> 
+                     {{ user.email }}
+                      </td>
+                    
+                 </tr>
+
+       
+        </tbody>
+
+ 
+    </table>
+    
+   </main>
+{% endblock %}

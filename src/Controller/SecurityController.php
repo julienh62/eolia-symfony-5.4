@@ -25,28 +25,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-  
-
-    #[Route(path: '/personal', name: 'personal_details')]
-    public function personal(AuthenticationUtils $authenticationUtils, UserRepository $userRepository): Response
-    {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        $user = $userRepository->findBy([], [], 1);
-       // dd( $fuser);
-
-        return $this->render('security/personal_details.html.twig', [
-            'last_username' => $lastUsername, 
-            'user' => $user,
-            'error' => $error]);
-    }
+    
 
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void

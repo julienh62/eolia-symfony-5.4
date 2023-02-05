@@ -20,7 +20,6 @@ html {
 * p {
     font-size: 2rem;
     line-height: 3rem;
-    Text-shadow: 0 0 0.015em #3383a9, 0 0 0.015em #3383a9;
     margin: 1rem;
 }
 
@@ -181,6 +180,82 @@ a.nav-link {
 }
 
 
+
+/***********************************************************************
+************              Footer     *********************************
+*********************************************************************/
+
+
+.reseaux {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+.reseaux a {
+    margin: 0 1rem;
+    font-size: 0.8rem;
+}
+
+.reseaux a:hover,
+.reseaux a:focus {
+    color: #3383a9;
+}
+
+.légales {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+a.fab.fa-facebook-square {
+    color: #3b5998;
+}
+
+a.fab.fa-youtube-square {
+    color: #cd201f;
+}
+
+a.fab.fa-instagram-square {
+    color: #262626;
+}
+
+a.fab {
+    font-size: 6rem;
+}
+
+#footer nav {
+    background-color: #eaf4fe;
+    padding: .5rem;
+}
+
+.reseauxsociaux {
+    display: flex;
+    justify-content: center;
+    margin: auto 0;
+    margin: 4rem 2rem 4rem 0rem;
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#footer nav ul li a {
+    color:#6c757d;
+    font-size: 1.5rem;
+    display: inline-block;
+    text-align: center
+}
+
+
+
+
+
+
+
+
+
+
 /*********************************************************************************************************
           version tablette                       version tablette                       version tablette
 *******************************************************************************************************/
@@ -188,6 +263,14 @@ a.nav-link {
 #payment-form {
     max-width: 600px;
 }
+
+/********************* footer *******************/
+.reseaux {
+    justify-content: space-around;
+ 
+}
+
+
 }
 /*********************************************************************************************************
           version desktop                        version desktop                        version desktop
@@ -237,4 +320,18 @@ a.nav-link {
     #payment-form {
         max-width: 1200px;
     }
+
+
+/**************************Footer desktop***************************************/
+
+
+.reseaux {
+    justify-content: space-around;
+    margin: 6rem 0rem 6rem 0rem;
+}
+
+#footer nav ul li a {
+    margin: 1rem;
+}
+
 }

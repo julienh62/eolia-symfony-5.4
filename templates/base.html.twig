@@ -42,30 +42,41 @@
 	<body>
 
 		{% include "_partials/_nav.html.twig" %}
-		<main class="container">
+		  
+		
 			{% for rubrique, messages in app.flashes  %}
+			<main class="container">
 				<div class="alert alert-{{ rubrique }}">
 					{% for message in messages %}
 						<p>{{ message }}</p>
 					{% endfor %}
 				</div>
-       </main>
-			{% endfor %}
-			{# {% if app.user and app.user.isVerified == false %}  #}
-		<!--    <div class="alert alert-warning alert-dismissible" role="alert"> 
-								    
-								               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-								               <div class="alert-message">
-								                 <strong>Votre compte n'est pas activé</strong>,
-								                   <a href="{#  {{ path('resend_verif')   #}   }}"> renvoyer le lien d'activation </a>
-								               </div>
-								           </div> -->
-			{#  {% endif %} #}
-	
-		{#  {% include "_partials/_flash.html.twig" %} #}
-		{% block body %}{% endblock %}
+     
+          </main>
 
-		{#  {% include "_partials/_footer.html.twig" %} #}
+			{% endfor %}
+		
+		
+	<main class="container">  
+		
+		{% block body %}    {% endblock %}
+</main> 
+		  <div id="footer">
+            {% block footer %}
+ <div class="reseaux">
+                <a href="https://www.facebook.com/charavoilepicardie" target="_blank" class="fab fa-facebook-square"></a>
+                <a href="https://www.youtube.com/watch?v=suYScmKY7os" target="_blank" class="fab fa-youtube-square"></a>
+                <a href="https://www.instagram.com/eoliapicardie/?hl=fr" target="_blank" class="fab fa-instagram-square"></a>
+            </div>
+            <nav>
+                <ul class="légales">
+                    <li><a href="politique-confidentialite.php">POLITIQUE DE CONFIDENTIALITÉ</a></li>
+                    <li><a href="mentions-legales.php">MENTIONS LÉGALES</a></li>
+                    <li><a href="cgv.php">CGV</a></li>
+                </ul>
+            </nav>            {% endblock %}
+        </div>
+	
 		{% block javascripts %}{% endblock %}
 
 	</body>

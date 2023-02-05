@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ seance.name }}
+	detail_show
 {% endblock %}
 
 {% block body %}
@@ -11,8 +11,8 @@
 				<a href="{{ path('app_home') }}">Accueil</a>
 			</li>
 			<li class="breadcrumb-item active">
-				<a href="{{ path('seance_categorie', {'slug':seance.categorie.slug}) }}">
-					{{ seance.categorie.title }}
+				<a href="{{ path('describ_categorie', {'slug':seance.categorie.slug}) }}">
+				Description	complète + d'infos {{ seance.categorie.title }}
 				</a>
 			</li>
 			<li class="breadcrumb-item active">
