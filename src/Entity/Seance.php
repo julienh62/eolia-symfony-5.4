@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\SeanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,39 +14,49 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
 {
+    #[Groups(['seance:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datedelaseance = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column]
     private ?int $price = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\ManyToOne(inversedBy: 'seances')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\OneToMany(mappedBy: 'seance', targetEntity: PurchaseItem::class)]
     private Collection $purchaseItems;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
    // #[Assert\Length(min: 4)]
     private ?string $name = null;
 
+    #[Groups(['seance:read'])]
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $shortDescription = null;
 

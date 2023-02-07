@@ -34,7 +34,7 @@ class AdminController extends AbstractController
        //  dd($seance);
        //  dd($categorie);
   
-   
+    
     
             // dd($prenom);
            return $this->render('admin/seance/seance.html.twig', [
@@ -77,6 +77,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted()) {
 
             $em->flush();
+
+            $this->addFlash('success', "La séance a bien été modifiée");
         
             return $this->redirectToRoute('admin_seance_list', [
                 'categorie_slug' => $seance->getCategorie()->getSlug(),
@@ -138,11 +140,11 @@ class AdminController extends AbstractController
 
 
 /**
-     * @Route("/admin/seance/{id<[0-9]+>}/seance", name="seance_delete", methods= "GET")
+     * @Route("/admin/seance/{id<[0-9]+>}/delete", name="seance_delete", methods= "GET")
      */
-    public function deleteSeance(Categorie $categorie, EntityManagerInterface $entityManager)
+    public function deleteSeance(Seance $seance, EntityManagerInterface $entityManager)
     {
-        $entityManager->remove($categorie);
+        $entityManager->remove($seance);
         $entityManager->flush();
 
         return $this->redirectToRoute('admin_seance_list');

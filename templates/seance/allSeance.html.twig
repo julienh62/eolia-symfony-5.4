@@ -7,15 +7,21 @@
    <section class="row">
         <div class="col-12">
           <h1> Toutes les séances</h1>
-           {% for seance in seances %}
+       <label class="label" for="recherche">Cliquez dans la barre de recherche ci dessous pour trouver la date de votre séance: </label><!-- Notre champ de recherche avec un id-->
+            <input type="date" name="recherche" id="search" value="<?= date('Y-m-d') ?>"  required pattern="\d{4}-\d{2}-\d{2}"/>
+           
+         <div id="result">  {% for seance in seances %}
            <div class="container">
              <div class="row align-items-start"> 
                 {% include "seance/_seance_categorie_card.html.twig" %}
              </div>
           </div>
            
-          {% endfor %} 
+          {% endfor %}  </div>
        </div>           
    </section>
-</main>  
+</main>
+
+ <script src="/assets/js/searchseance.js" defer></script> 
+
 {% endblock %}

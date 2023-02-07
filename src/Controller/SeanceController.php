@@ -8,19 +8,13 @@ use App\Entity\Categorie;
 use App\Event\SeanceViewEvent;
 use App\Repository\SeanceRepository;
 use App\Repository\CategorieRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use \DateTime;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class SeanceController extends AbstractController
 {
@@ -53,31 +47,7 @@ class SeanceController extends AbstractController
     }
     
 
-
-
-
-
-
-    /*affiche toutes les séances char a voile adulte
-    /** 
- * @Route("/seancechar", name="charAll_show")
- */
-/*public function showCharAll(CategorieRepository $categorieRepository, SeanceRepository $seanceRepository)
-{
-
-   $seance = $seanceRepository->findBySlug('char-a-voile');
-
-
-    return $this->render(
-        'seance/charAll.html.twig',
-        [
-   
-            'seances'  => $seance
-        ]
-
-    );
-}  */
-
+  // list seance char
   /**
  * @Route("/seanceallchar", name="seance_all_char")
  */
@@ -98,7 +68,7 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
 }
 
 
-
+  //description seance char
   /**
    * @Route("/char-a-voile", name="char_voile")
    */
@@ -121,7 +91,7 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
 
 
 
-
+   //list seance kid
    /**
    * @Route("/seancecharkid", name="charkidAll_show")
    */
@@ -141,7 +111,7 @@ public function listSeanceByCharKid( SeanceRepository $seanceRepository)
     );
 }
 
-
+  // description seance kid
   /**
    * @Route("/char-a-voile-kids", name="char_kids")
    */
@@ -204,9 +174,6 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
       );
     }
 
- 
-
-
 
     /**
      * @Route("/{categorie_slug}/{slug}", name="seance_show", priority=-1)
@@ -221,8 +188,7 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
         if (!$seance) {
             throw $this->createNotFoundException("la seance demandée n'existe pas");
         }
-//Lancer un evnmnt qui permet aux autres develloper de reagir à la
-        //vue d'une seance détail
+        //Lancer un evnmnt qui permet aux autres develloper de reagir à la vue d'une seance détail
         // seanceview est le nom donné à l'evnmnt (dossier Event)
         $seanceViewEvent = new SeanceViewEvent($seance);
         $dispatcher->dispatch($seanceViewEvent, 'seance.view');
@@ -246,7 +212,7 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
         /**
          * @Route("/seance", name="seance_list")
         */
-        public function index(SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
+    /* public function index(SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
        {
             $seance = $seanceRepository->findAll();
             $categorie = $categorieRepository->findAll();
@@ -262,6 +228,49 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
     
             );
     
-       }
+       } */
+
+
+
+         /**
+ *  * @Route("/seance", name="seance_list")
+ */
+public function listSeance( SeanceRepository $seanceRepository)
+{
+
+   $seance = $seanceRepository->getAll();
+
+
+    return $this->render(
+        'seance/allSeance.html.twig',
+        [
+   
+            'seances'  => $seance
+        ]
+
+    );
+}
+
+
+        /**
+ *  * @Route("/search/{searchItem}", name="seance_search")
+ */
+public function searchSeance( SeanceRepository $seanceRepository, $searchItem = null):JsonResponse
+{
+   //etape 2
+    $data = new DateTime($searchItem);
+    $seance = $seanceRepository->getByDate($data);
+  //  dd($data);
+   //dd($seance );
+  // dd($searchItem);
+   
+ 
+// 200 c'est le statut http attendu
+//etape 3
+    return $this->json( $seance, 200, [], ['groups' => 'seance:read']
+    );
+}
+
+
 
 }

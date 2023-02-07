@@ -17,7 +17,7 @@ const style = {
      color: "#fa755a",
   }
 };
-console.log("coucous");
+console.log("coucous payment");
 const card = elements.create("card" , { style: style });
 // stripe injects an iframe into the Dom
 console.log(card);

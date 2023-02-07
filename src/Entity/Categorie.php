@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,20 +12,22 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
+    #[Groups(['seance:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['seance:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank]
     private ?string $title = null;
 
-   
-   // #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Seance::class)]
-   // private Collection $seances;
+   //07/01
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Seance::class)]
+    private Collection $seances;
 
-
+    #[Groups(['seance:read'])]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -49,18 +52,6 @@ class Categorie
 
         return $this;
     }
-
- /*   public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }  */
 
     /**
      * @return Collection<int, Seance>

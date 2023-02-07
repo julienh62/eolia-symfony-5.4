@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Form\CartConfirmationType;
 use App\Repository\SeanceRepository;
 use App\Service\CartService;
-//use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +46,7 @@ class CartController extends AbstractController
 
         $this->cartService->add($id);
 
-       // $this->addFlash('success', "la séance a bien été ajoutée au panier");
+      
 
         if ($request->query->get('returnToCart')) {
             return $this->redirectToRoute('cart_index');
@@ -76,9 +75,9 @@ class CartController extends AbstractController
             'items' => $detailedCart,
             'total' => $total,
             'confirmationForm' => $form->createView()
-            // 12/01        'confirmationForm' => $form->createView()
+           
         ]);
-        // compact("dataCart", "total") );
+        
     }
 
     /**
@@ -95,21 +94,11 @@ class CartController extends AbstractController
 
         $this->cartService->remove($id);
 
-      //  $this->addFlash('success', "la séance a bien été supprimée du panier");
-
 
         //   dd($this->cartService);
         return $this->redirectToRoute('cart_index');
 
-        // on récupère le panier actuel
-        //12/01  $cart = $this->session->get("cart", []);
-
-        //12/01   if (!empty($cart[$id])) {
-        //   unset($cart[$id]);
-        //   }
-
-        //12/01 on sauvegarde dans la session
-        //  $this->session->set("cart", $cart);
+     
     }
 
 
@@ -129,10 +118,7 @@ class CartController extends AbstractController
 
         $this->cartService->decrement($id);
 
-      //  $this->addFlash('success', "la séance a bien été décrémenté du panier");
-
-
-        //   dd($this->cartService);
+   
         return $this->redirectToRoute('cart_index');
 
 

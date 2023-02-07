@@ -15,7 +15,8 @@
 		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'>
 		{# feuille de style #}
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"> {% block stylesheets %}{% endblock %}
-		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">{# fichiers js #}
+		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
 		{# defer permet le chargement js en dernier #}<script src="{{ asset('assets/js/bootstrap.bundle.js') }}" defer> </script>
 
 		  	
@@ -31,7 +32,7 @@
 
 	<body>
 
-		{% include "_partials/_nav.html.twig" %}
+		{% include "_partials/_navaccueil.html.twig" %}
 		  
 		
 			{% for rubrique, messages in app.flashes  %}

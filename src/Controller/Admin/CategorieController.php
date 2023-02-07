@@ -31,14 +31,14 @@ class CategorieController extends AbstractController
 
         //   dd($categorie);
 
-        //   $dispatcher->dispatch(new SeanceViewEvent($seance), 'seance.view');
+       
 
 
 
         return $this->render(
             'admin/categorie/categorie.html.twig',
             [
-                //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
+               
                 'categorie' => $categorie
             ]
 
@@ -116,7 +116,7 @@ class CategorieController extends AbstractController
             // $flashbag->add('success', "la catégorie a bien été modifiée");
             $this->flashBagInterface->add('success', "la catégorie a bien été modifiée");
            
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('categorie_list');
         }
 
         $formView = $form->createView();

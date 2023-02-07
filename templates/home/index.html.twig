@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseaccueil.html.twig' %}
 
 {% block title %}Éolia!{% endblock %}
 
+
 {% block body %}
 
+  <section>
   
-  
-      <h1>Nos activités </h1>
-      <div class="row">
+      <h1 class="haccueil">Nos activités </h1>
+      <div class="activiteaccueil">
           {% for seance in seances  %}
-          <div class="col">
-              <div class ="card">
+          <div class="activite">
+              <div class ="carte">
                   <img src="{{ seance.picture }}" alt= "char à voile">
-                  <div class="card-body">
+                  <div>
                      
 
                       <span class="badge text-bg-secondary">{{ seance.categorie.title }}</span>
@@ -21,31 +22,26 @@
                        <h4 class="card-title">{{ seance.name }} ({{ seance.price / 100 }} &euro;)</h4>
 
                        
-                      <p class="card-text">{{ seance.shortDescription }}</p>
-                      <a href="{{ path('seance_show', {'categorie_slug': seance.categorie.slug, 'slug': seance.slug}) }}" class="btn btn-primary btn-sm">Détails</a>
+                      <p>{{ seance.shortDescription }}</p>
+                      <div class="btnaccueil">
+                      <a href="{{ path('seance_show', {'categorie_slug': seance.categorie.slug, 'slug': seance.slug}) }}" class="btn btn-primary btn-sm">voir + de détails</a>
                       <a href="{{ path('cart_add', {'id': seance.id}) }}" class="btn btn-success btn-sm">Ajouter à votre panier</a>
+                      </div>
                   </div>
               </div>
           </div>
           {% endfor %}
       </div>
+</section>
 
 
 
 
-      <div class="slider">
-                <div><img src="{{ asset('assets/uploads/char-accueiltitregros1500.jpg')}}" alt = "char à voile"></div>
-                <div><img src="{{ asset('assets/uploads/charpaysage.jpg')}}" alt = "char enfant"></div>
-                <div><img src="{{ asset('assets/uploads/chardepart-1500.jpg')}}" alt = "char-depart"></div>
-   </div>  
-
-           <div class="img-accueil-desktop">
-              <img src="{{ asset('assets/uploads/char-accueiltitregros1500.jpg')}}" alt = "char à voile">
-           </div>
+      
 
     <div class="titremobil">
            
-              <img src= "{{ asset('assets/uploads/char-accueil.jpg')}}" alt ="char à voile Baie de Somme">
+            <img src= "{{ asset('assets/uploads/char-accueil.jpg')}}" alt ="char à voile Baie de Somme"> 
               <h1 class="titreh1"> Char à Voile Baie de Somme</h1>
               <h2> Fort Mahon et Quend-Plage</h2>
            
@@ -57,7 +53,9 @@
                     <p>Au cours de votre première séance d’initiation de char à voile à Fort Mahon, après environ 1 heure d’apprentissage, selon les conditions météos, une randonnée ou balade en char à voile commence sous la conduite d’un moniteur Breveté d’État. Les coquillages craquent sous vos roues, le vent fait légèrement chasser les roues arrières dans une fine gerbe de sable…</p>
                     <p>Devant vous l’espace infini de la Baie de Somme en Picardie, EOLIA vous convie à des « Escapades Aér’O Plage », sorties inoubliables aux accents d’Air d’Eau et de Sable.</p>
                 </div>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d162960.58094757705!2d1.578692!3d50.343073!3m2!1i1024!2i768!4f13.1!2m1!1sEolia%20Fort%20mMahon%20et%20Quend%20Plage!5e0!3m2!1sfr!2sus!4v1639571521156!5m2!1sfr!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>   
+                
+                <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d162960.58094757705!2d1.578692!3d50.343073!3m2!1i1024!2i768!4f13.1!2m1!1sEolia%20Fort%20mMahon%20et%20Quend%20Plage!5e0!3m2!1sfr!2sus!4v1639571521156!5m2!1sfr!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>  
+                
     </div>
 
     <div class="p-version-tablette">
@@ -67,15 +65,9 @@
 
 
 
+   <script src="/assets/js/slider.js" defer></script> 
 
-   <script src="{{  asset('assets/js/slider.js') }}" ></script> 
-
- <!--on charge la bibliotheque jquery-->
-		 <script src="{{  asset('assets/js/jquery-3.5.1.min.js') }}" defer></script> 
-		<!--charger le js du plugin slick-->
-		 <script src="{{  asset('assets/js/slick.min.js') }}" defer></script> 
- <link rel='stylesheet' href= "https://cdnjs.com/libraries/slick-carousel">
-         <link rel= 'stylesheet' href= "https://www.jsdelivr.com/projects/jquery.slick">
+	
        
 
 {% endblock %}

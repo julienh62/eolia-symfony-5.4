@@ -66,35 +66,3 @@ class PurchasePersister
 }
 
 
-//        //intégrer tout ce qu'il faut et persister la purchase
-//        //lier la purchase avec l' utilisateur connecté (Security)
-//        dd($purchase->setUser($this->security->getUser()));
-//
-////        $purchase->setUser($this->security->getUser())
-////            ->setCreatedAt(new DateTimeImmutable())
-////            ->setTotal($this->cartService->getTotal());
-//
-//        $this->em->persist($purchase);
-//
-//        //lier avec les produits du panier Cartservice
-//        //    $total = 0;
-//
-////           foreach($this->cartService->getDetailedCartItems() as $cartItem) {
-//        foreach ($this->cartService->getDetailedCartItems() as $cartItem) {
-//            $purchaseItem = new PurchaseItem();
-//            //       dd($cartItem);
-////               dd($purchaseItem);
-//            $purchaseItem->setPurchase($purchase)
-////                   ->setSeance($cartItem->seance->getDatedelaseance())
-//                ->setSeanceName($cartItem->seance->getPrice())
-//                ->setSeancePrice($cartItem->seance->getPrice())
-//                ->setQuantity($cartItem->quantity)
-//                ->setTotal($cartItem->getTotal());
-//
-////               $total += $cartItem->getTotal();
-//
-//            $this->em->persist($purchaseItem);
-//        }
-//        // enregistrer la commande (entityManagerInterface)
-//        $this->em->flush();
-//    }

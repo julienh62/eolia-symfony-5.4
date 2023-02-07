@@ -33,49 +33,6 @@ class RegistrationFormType extends AbstractType
 
 
 
-       //     ->add('lastname', TextType::class, [
-       ////         'attr' => [
-       //             'class' => 'form-control'
-       //         ],'label' => 'Nom'
-       //     ])
-       //     ->add('firstname', TextType::class, [
-       //         'attr' => [
-        //            'class' => 'form-control'
-       //         ],'label' => 'Prénom'
-        //    ])
-       //     ->add('address',TextType::class, [
-       // 'attr' => [
-       //     'class' => 'form-control'
-       //   ],'label' => 'Adresse'
-      //   ])
-       //     ->add('zipcode',TextType::class, [
-      //  'attr' => [
-      //      'class' => 'form-control'
-      //   ],'label' => 'Code postal'
-      //  ])
-      //      ->add('city',TextType::class, [
-      //  'attr' => [
-      //      'class' => 'form-control'
-      //   ],'label' => 'Ville'
-      //  ])
-      //      ->add('country',TextType::class, [
-      //  'attr' => [
-      //      'class' => 'form-control'
-      //  ],'label' => 'Pays'
-      //   ])
-      //      ->add('phone',TextType::class, [
-      //      'attr' => [
-      //  'class' => 'form-control'
-      //  ],'label' => 'Téléphone'
-      //      ])
-//            ->add('agreeTerms', CheckboxType::class, [
-//                'mapped' => false,
-//                'constraints' => [
-//                    new IsTrue([
-//                        'message' => 'You should agree to our terms.',
-//                    ]),
-//                ],
-//            ])
             ->add('RGBDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
