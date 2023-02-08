@@ -19,6 +19,16 @@ html {
       
 }
 
+@font-face {
+    font-family: 'stay_classy_sldtregular';
+    src: url('assets/font/stay_classy_sldt-webfont.woff2') format('woff2'),
+         url('assets/fontstay_classy_sldt-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
  p {
     font-size: 2rem;
     line-height: 3rem;
@@ -56,7 +66,7 @@ generalites
 
 body {
 
-    font-family: 'Numito', sans-serif;
+    font-family: 'stay_classy_sldtregular';
     color: #101936;
     background: #fbfaf8;
     /*  text-shadow: 0 0 0.02em #000, 0 0 0.02em #000;*/
@@ -71,7 +81,9 @@ body {
     
 }
 
-
+section {
+    margin:5rem;
+}
 
 li {
     list-style: none;
@@ -132,15 +144,179 @@ a.nav-link {
 
 
 /*////////////////////////////////////// 
-//////////       SLIDER        //////////
+//////////       body  (mobil)      //////////
 //////////////////////////////////////*/
 
 #slider {
     display: none;
 }  
-.haccueil {
-    font-size:4rem ;
+
+
+
+
+.titreh1 {
+    text-align: center;
+    font-size: 5rem;
+    line-height: 5rem;
+} 
+
+.titreh2 {
+    text-align: center;
+    margin:0rem 5rem 0rem 5rem;
+    line-height: 3rem;
+} 
+
+
+.htitrecat {
+    margin:4rem;
+    font-size: 5rem;
 }
+
+/* div des 3 activites */
+.activiteaccueil {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    align-items: center;
+    height:700px;
+    justify-content: space-around;
+}
+
+
+
+.activitechar, .activitekid, .activitecata {
+    position: relative;
+    width: 300px;
+    height: 168px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+}
+
+
+
+.activitecata::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/miniature-cata-accueil1.jpg);
+    -webkit-background-size: cover;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+
+.activitekid {
+    position: relative;
+    padding-bottom: 1rem;
+
+}
+.activitekid::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/charbabyaccueil.jpg);
+    -webkit-background-size: cover;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+
+.activitechar {
+    position: relative;
+    padding-bottom: 1rem;
+
+}
+.activitechar::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/groupe-cha-mini-1.jpg);
+    -webkit-background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+
+
+
+.lienaccueil {
+    font-size:3rem;
+    color: white;
+    text-shadow: #000000 2.5px 0 1px;
+    --bs-link-hover-color: rgba(251,250,248,0.8);
+    animation-duration: 6s;
+    animation-name: slidein;
+    
+}
+
+@keyframes slidein {
+    from {
+      opacity: 0;
+   
+    
+    
+    }
+  
+    to {
+        opacity:1;
+     
+       
+
+    }
+}
+
+.lienaccueilkid {
+    font-size:3rem;
+    color: white;
+    text-shadow: #000000 2.5px 0 1px;
+    --bs-link-hover-color: rgba(251,250,248,0.8);
+    animation-duration: 6s;
+    animation-name: slidein;
+    
+}
+
+@keyframes slidein {
+    from {
+      opacity: 0;
+ 
+    
+    }
+  
+    to {
+        opacity:1;
+     
+       
+
+    }
+}
+
+
+
+
 
 .carte{
     margin:2rem 1rem 2rem 1rem;
@@ -156,7 +332,7 @@ a.nav-link {
 }
 
 /*////////////////////////////////////// 
-//////////       intro       //////////
+//////////       description      //////////
 //////////////////////////////////////*/
 
 
@@ -173,13 +349,11 @@ a.nav-link {
     align-items: center;
 
 }
-
-.titreh1 {
-    text-align: center;
-    font-size: 5rem;
+.imgtitretablett {
+    display:none;
 }
 
-.intro,
+.description,
 .fortmahon,
 .quendplage {
     display: flex;
@@ -297,19 +471,53 @@ body > div.navbaraccueil > nav {
   .imgsite {
     max-width:300px;
 }
-
-.activiteaccueil {
-    background-color:#eaf4fe;
-    margin:2rem 0rem 5rem 0rem;
+.imgtitretablett {
+    display:flex;
 }
 
-.intro , .paragraphe{
+.haccueil {
+    display:none;
+    
+}
+
+
+.activiteaccueil {
+  height: 170px;
+  width: 920px;
+  flex-direction: row;
+}
+
+.activitechar, .activitekid, .activitecata {
+    position: relative;
+    width: 200px;
+    height: 112px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.activitechar::after , .activitecata::after, .activitekid::after {
+   
+    height:112px;
+    width:200px;
+    z-index: -1;
+}
+
+.imgtitremobil {
+    display: none;
+
+}
+
+
+.description , .paragraphe{
     margin-bottom: 5rem ;
 }
 
- 
-
-
+.lienactiviteaccueilkid {
+    margin-right: 3rem;
+    margin-left: 3rem;
+    line-height: 3rem;
+    text-align: center;
+}
 
 /********************* footer *******************/
 .reseaux {
@@ -414,30 +622,91 @@ body > div.navbaraccueil > nav {
     }
    
 
-    .activiteaccueil {
-        display:flex;
-        justify-content: space-around;
-        margin-top:5rem;
-    }
-    .activite {
-        max-width:300px ;
-    }
-    .btnaccueil {
-      display:flex;
-    }
-
-
+   
     .titremobil {
         display: none;
 
     }
+    
+    .haccueil {
+        display:block;
+        font-size:4rem ;
+    }
+    
+ .activiteaccueil {
+    width:1000px;
+    height:180px;
+ }
+ .activitecata::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/miniature-cata-accueil1.jpg);
+    -webkit-background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+.activitechar::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/groupe-cha-mini-1.jpg);
+    -webkit-background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+.activitekid::after {
+    content: "";
+   /* max-width:300px ;*/
+    background : url(https://127.0.0.1:8000/assets/uploads/charbabyaccueil.jpg);
+    -webkit-background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:168px;
+    width:300px;
+    z-index: -1;
+}
+    .activitechar, .activitekid, .activitecata {
+        position: relative;
+        width: 300px;
+        height: 168px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: 1rem;
+    }
 
-    .intro {
+
+    .description {
         flex-direction: row;
         align-items: center;
         margin:5rem 0rem 5rem 0rem;
     }
- 
  
 
     

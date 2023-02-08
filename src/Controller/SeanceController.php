@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
+
 class SeanceController extends AbstractController
 {
     
@@ -51,16 +52,16 @@ class SeanceController extends AbstractController
   /**
  * @Route("/seanceallchar", name="seance_all_char")
  */
-public function listSeanceByChar( SeanceRepository $seanceRepository)
+public function listSeanceByChar( SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
 {
 
    $seance = $seanceRepository->getAllChar();
-
+   $idCat = $categorieRepository->find($id = 1);
 
     return $this->render(
         'seance/listByCat.html.twig',
         [
-   
+             'idcat' => $idCat,
             'seances'  => $seance
         ]
 
@@ -82,7 +83,6 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
       return $this->render(
           'seance/describ_categorie.html.twig',
           [
-     
               'seances'  => $seance
           ]
   
@@ -95,17 +95,17 @@ public function listSeanceByChar( SeanceRepository $seanceRepository)
    /**
    * @Route("/seancecharkid", name="charkidAll_show")
    */
-public function listSeanceByCharKid( SeanceRepository $seanceRepository)
+public function listSeanceByCharKid( SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
 {
 
    $seance = $seanceRepository->getAllCharKid();
-
+   $idCat = $categorieRepository->find($id = 3);
 
     return $this->render(
         'seance/listByCat.html.twig',
         [
-   
-            'seances'  => $seance
+            'seances'  => $seance,
+            'idcat' => $idCat 
         ]
 
     );
@@ -138,17 +138,20 @@ public function listSeanceByCharKid( SeanceRepository $seanceRepository)
    /**
  * @Route("/seancescatamaran", name="cataAll_show")
  */
-public function listSeanceByCatamaran( SeanceRepository $seanceRepository)
+public function listSeanceByCatamaran( SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
 {
 
    $seance = $seanceRepository->getAllCatamaran();
-
-
+   $idCat = $categorieRepository->find($id = 2);
+   
+  //dd($title);
+//dd($title);
     return $this->render(
         'seance/listByCat.html.twig',
         [
-   
-            'seances'  => $seance
+            'seances'  => $seance,
+            'idcat' => $idCat
+            
         ]
 
     );
@@ -167,7 +170,6 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
       return $this->render(
           'seance/describ_categorie.html.twig',
           [
-     
               'seances'  => $seance
           ]
   
@@ -175,7 +177,7 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
     }
 
 
-    /**
+    /** 
      * @Route("/{categorie_slug}/{slug}", name="seance_show", priority=-1)
      */
     public function show($slug, SeanceRepository $seanceRepository, EventDispatcherInterface $dispatcher)
@@ -194,8 +196,6 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
         $dispatcher->dispatch($seanceViewEvent, 'seance.view');
      
 
-
-        // dd($prenom);
         return $this->render(
             'seance/show.html.twig',
             [
@@ -209,33 +209,10 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
 
 
 
-        /**
-         * @Route("/seance", name="seance_list")
-        */
-    /* public function index(SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
-       {
-            $seance = $seanceRepository->findAll();
-            $categorie = $categorieRepository->findAll();
-       //  dd($seance);
-       //  dd($categorie);
- 
-  
-           return $this->render('seance/allSeance.html.twig', [
-                    //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
-                    'seances' => $seance,
-                    'categorie' => $categorie
-                ]
-    
-            );
-    
-       } */
-
-
-
-         /**
+ /**  toutes les seances toutes categories
  *  * @Route("/seance", name="seance_list")
  */
-public function listSeance( SeanceRepository $seanceRepository)
+public function listAllSeance( SeanceRepository $seanceRepository)
 {
 
    $seance = $seanceRepository->getAll();
@@ -244,7 +221,6 @@ public function listSeance( SeanceRepository $seanceRepository)
     return $this->render(
         'seance/allSeance.html.twig',
         [
-   
             'seances'  => $seance
         ]
 

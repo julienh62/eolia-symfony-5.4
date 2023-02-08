@@ -68,11 +68,11 @@ class CategorieController extends AbstractController
             $em->persist($categorie);
 
             $em->flush();
-            //dd($seance);
+           
 
             $this->flashBagInterface->add('success', "la catégorie a bien été créée");
           
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('categorie_list');
         }
 
 

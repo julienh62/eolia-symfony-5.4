@@ -5,9 +5,13 @@
 {% block body %}
 <main class="container">
    <section class="row">
+   
+       <h1 class ="htitrecat"> Toutes les séances de {{ idcat.title }} </h1>
+        
         <div class="col-12">
-          
-           {% for seance in seances %}
+
+           {% for seance in seances %}     
+
             <div class ="card">
            <img class="imgsite" src="{{ seance.picture }}"  alt="char à voile">
 
