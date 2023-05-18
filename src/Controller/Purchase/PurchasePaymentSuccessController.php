@@ -3,8 +3,10 @@
 namespace App\Controller\Purchase;
 
 use App\Entity\Purchase;
+
 use App\Service\CartService;
 use App\Event\PurchaseSuccessEvent;
+use App\Event\PurchaseSuccessEventStock;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +33,7 @@ class PurchasePaymentSuccessController extends AbstractController {
              ($purchase && $purchase->getUser() !== $this->getUser()) ||
              ($purchase && $purchase->getStatus() === Purchase::STATUS_PAID)
         ) {
-            // $this->addFlash('warning', "la commande n'existe pas");
+            
              return $this->redirectToRoute("app_purchase");
         }
 
@@ -47,7 +49,18 @@ class PurchasePaymentSuccessController extends AbstractController {
         // purchase.success est le nom donné à l'evnmnt (dossier Event)
           $purchaseEvent = new PurchaseSuccessEvent($purchase);
           $dispatcher->dispatch($purchaseEvent, 'purchase.success');
-         //dd($purchase);
+
+
+
+
+        //Lancer un evnmnt qui permet
+        // de decrementer le stock de produit
+        // purchase.successStock est le nom donné à l'evnmnt (dossier Event)
+       // $purchaseEventStock = new PurchaseSuccessEventStock($purchase);
+      //  $dispatcher->dispatch($purchaseEventStock, 'purchase.successStock');
+
+
+       
         //jr redirige 
           $this->addFlash('success', "Votre commande a bien été enregistrée et payée");
          return $this->redirectToRoute("app_purchase");

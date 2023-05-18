@@ -8,40 +8,46 @@
 
     <div class="titremobil">
            
-            <img class="imgtitremobil"  src= "{{ asset('assets/uploads/char-accueil.jpg')}}" alt ="char à voile Baie de Somme"> 
-            
-            <img class="imgtitretablett"  src= "{{ asset('assets/uploads/chardepart-tab.webp')}}" alt ="char à voile Baie de Somme"> 
-              <h1 class="titreh1"> Char à Voile Baie de Somme</h1>
-              <h2 class="titreh2"> Fort Mahon et Quend-Plage</h2>
-           
-            </div> 
 
-<section>
-   <h1 class="haccueil">Nos activités </h1>
+              <picture>
+               <source srcset="{{ asset('assets/uploads/char-accueil.jpg')}}" alt ="char à voile Baie de Somme" media="(orientation: portrait)">
+               <img src="{{ asset('assets/uploads/chardepart-tab.webp')}}"alt ="char à voile Baie de Somme">
+               </picture>  
 
-   <div class="activite">
-      <div class="activiteaccueil">
+
+      
+    </div> 
+
+   <section class="titre-accueil">
+
+      <h1 class="titreh1"> Char à Voile Baie de Somme</h1>
+     <h2 class = "titreh2"> Fort Mahon et Quend-Plage</h2>
+ 
+
+    <div class="activite">
+           <div class="activiteaccueil">
         
-          <div class="activitecata">
-               <div class="btnactiviteaccueil">
-                      <a class="lienaccueil" href="{{ path('cataAll_show') }}"> Catamaran </a>
-                 </div>
-         </div>
+              <div class="activitecata">
+                     <div class="btnactiviteaccueil">
+                          <a class="lienaccueil" href="{{ path('cataAll_show') }}"> Catamaran </a>
+                    </div>
+              </div>
 
-            <div class="activitechar">   
+              <div class="activitechar">   
                           <a class="lienaccueil" href="{{ path('seance_all_char') }}" class="btn btn-secondary btn-sm"> Char </a>       
-            </div>
+              </div>
           
-            <div class="activitekid">
+             <div class="activitekid">
                           <a class="lienaccueilkid" href="{{ path('charkidAll_show') }}" class="btn btn-secondary btn-sm"> Char à voile kid </a>
              </div>
       </div>
-      </section>
-</div>
+   </section>
 
 
 
 
+           
+           
       
 
              <div class="description">

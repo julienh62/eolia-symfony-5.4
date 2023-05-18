@@ -53,15 +53,7 @@
 				<li>
 					<a class="nav-link" href="#">CARTE CADEAU</a>
 				</li>
-				<li>
-					<a class="nav-link" href="#">OFFRE-PRO</a>
-				</li>
-				<li>
-					<a class="nav-link" href="#">SCOLAIRE</a>
-				</li>
-				<li>
-					<a class="nav-link" href="#">HISTOIRE</a>
-				</li>
+			
 				<li>
 					<a class="nav-link" href="#">CONTACT</a>
 				</li>
@@ -69,9 +61,6 @@
 			</ul>
 
 
-			{#	<li class="nav-item">
-													<a class="nav-link disabled">Disabled</a>
-												</li> #}
 
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				{% if app.user %}
@@ -86,7 +75,7 @@
 						<a class="btn btn-warning btn-lg" href="{{ path('app_logout') }}#}">DÉCONNEXION</a>
 					</li>
 					<li class="nav-item">
-{#						CartService enregistré dans twig.yaml#}
+                      {#CartService enregistré dans twig.yaml#}
 						<a class="btn btn-info btn-lg" href="{{ path('cart_index') }} ">🛒
 							({{ cartService.total | amount }})
 						</a>
@@ -113,5 +102,5 @@
                 <div id="precedent" onclick="ChangeSlide(-1)">&lt;</div>
                 <div id="suivant" onclick="ChangeSlide(1)">&gt;</div>
               
-   </div> 
+</div> 
     

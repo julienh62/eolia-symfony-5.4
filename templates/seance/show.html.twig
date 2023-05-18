@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<main class="container">
+	
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="{{ path('app_home') }}">Accueil</a>
@@ -24,22 +24,26 @@
 		
 	</h1>
 
-	<div class="row">
-		<div class="col-4">
+	<div class="show">
+		<div class="show-detail">
 			<img class="imgsite" src="{{ seance.picture }}" alt="Image de {{ seance.name }}">
-		</div>
-		<div class="col-4">
+		
+		
 			<span class="badge badge-primary">{{ seance.categorie.title }}</span>
 			<p>{{ seance.shortDescription }}</p>
 
 		</div>
-		<div class="col-4">
-			<p>Places disponibles:
-				{{ seance.quantity }}</p>
+		
+	</div>
+
+        <div class="show-detail">
 			<p>Date de la séance:
 				{{ seance.datedelaseance|date("d/m/Y") }}
-				</p>
+			</p>
+			<p>Places disponibles:
+				{{ seance.quantity }}</p>
 			<a href="{{ path('cart_add', {'id': seance.id}) }}" class="btn btn-success btn-lg>">🛒  Ajouter au panier</a>
 		</div>
-	</div>
-</main>{% endblock %}
+
+
+{% endblock %}

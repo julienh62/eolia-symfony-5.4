@@ -32,7 +32,7 @@ class SeanceController extends AbstractController
         $seance = $seanceRepository->findOneBy([
             
         ]);
-     // dd($seance);
+    
 
         if (!$categorie) {
             throw $this->createNotFoundException("la categorie //demandée n'existe pas");
@@ -40,7 +40,6 @@ class SeanceController extends AbstractController
 
 
         return $this->render('seance/describ_categorie.html.twig', [
-            //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
             'slug' => $slug,
             'categorie' => $categorie,
             'seances' => $seance
@@ -54,7 +53,6 @@ class SeanceController extends AbstractController
  */
 public function listSeanceByChar( SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
 {
-
    $seance = $seanceRepository->getAllChar();
    $idCat = $categorieRepository->find($id = 1);
 
@@ -78,8 +76,7 @@ public function listSeanceByChar( SeanceRepository $seanceRepository, CategorieR
   
      $seance = $seanceRepository->getDescribChar();
      
-  
-  //dd($seance);
+ 
       return $this->render(
           'seance/describ_categorie.html.twig',
           [
@@ -140,12 +137,9 @@ public function listSeanceByCharKid( SeanceRepository $seanceRepository, Categor
  */
 public function listSeanceByCatamaran( SeanceRepository $seanceRepository, CategorieRepository $categorieRepository)
 {
-
    $seance = $seanceRepository->getAllCatamaran();
    $idCat = $categorieRepository->find($id = 2);
    
-  //dd($title);
-//dd($title);
     return $this->render(
         'seance/listByCat.html.twig',
         [
@@ -161,12 +155,9 @@ public function listSeanceByCatamaran( SeanceRepository $seanceRepository, Categ
    * @Route("/catamaran", name="char_cata")
    */
 public function SeanceByCata(SeanceRepository $seanceRepository)
-  {
-  
+  { 
      $seance = $seanceRepository->getDescribCata();
-     
   
-  //dd($seance);
       return $this->render(
           'seance/describ_categorie.html.twig',
           [
@@ -186,7 +177,7 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
         $seance = $seanceRepository->findOneBy([
             'slug' => $slug
         ]);
-      // dd($seance);
+   
         if (!$seance) {
             throw $this->createNotFoundException("la seance demandée n'existe pas");
         }
@@ -199,7 +190,7 @@ public function SeanceByCata(SeanceRepository $seanceRepository)
         return $this->render(
             'seance/show.html.twig',
             [
-                //  'seances'=> $seanceRepository->findBy([], ['datedelaseance' => 'ASC'])
+      
                 'seance' => $seance
 
             ]
@@ -236,10 +227,7 @@ public function searchSeance( SeanceRepository $seanceRepository, $searchItem = 
    //etape 2
     $data = new DateTime($searchItem);
     $seance = $seanceRepository->getByDate($data);
-  //  dd($data);
-   //dd($seance );
-  // dd($searchItem);
-   
+
  
 // 200 c'est le statut http attendu
 //etape 3

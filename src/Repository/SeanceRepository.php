@@ -78,7 +78,7 @@ class SeanceRepository extends ServiceEntityRepository
     }*/
 
     /**
-     * 
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getAll()
     {
@@ -93,8 +93,8 @@ class SeanceRepository extends ServiceEntityRepository
 
 
 
-/**
-     * 
+    /**
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getAllCharKid()
     {
@@ -109,8 +109,8 @@ class SeanceRepository extends ServiceEntityRepository
 
 
 
- /**
-     * 
+    /**
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getAllCatamaran()
     {
@@ -122,8 +122,8 @@ class SeanceRepository extends ServiceEntityRepository
        ;
     }
 
- /**
-     * 
+   /**
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getAllChar()
     {
@@ -136,8 +136,8 @@ class SeanceRepository extends ServiceEntityRepository
     }
 
 
-/**
-     * 
+   /**
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getDescribCharKid()
     {
@@ -152,8 +152,8 @@ class SeanceRepository extends ServiceEntityRepository
     }
 
 
-/**
-     * 
+    /**
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getDescribChar()
     {
@@ -169,7 +169,7 @@ class SeanceRepository extends ServiceEntityRepository
 
 
     /**
-     * 
+     * @return Seance[] Returns an array of Seance objects
      */
     public function getDescribCata()
     {
@@ -183,13 +183,17 @@ class SeanceRepository extends ServiceEntityRepository
        ;
     }
 
-public function getByDate($date){
+    /**
+     *  @return Seance[] Returns an array of Seance objects
+     */
+   public function getByDate($date){
     return $this->createQueryBuilder('s')
        ->where('s.datedelaseance = :date' )
        ->setParameter(':date', $date->format('Y-m-d'))
        ->getQuery()
        ->getResult()
  ;
+
 }
 
 }

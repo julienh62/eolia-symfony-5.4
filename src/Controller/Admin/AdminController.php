@@ -121,7 +121,7 @@ class AdminController extends AbstractController
             $em->persist($seance);
 
             $em->flush();
-            //dd($seance);
+          
 
             return $this->redirectToRoute('admin_seance_list', [
                 'categorie_slug' => $seance->getCategorie()->getSlug(),
@@ -138,10 +138,11 @@ class AdminController extends AbstractController
         ]);
     }
 
+/*
 
-/**
-     * @Route("/admin/seance/{id<[0-9]+>}/delete", name="seance_delete", methods= "GET")
-     */
+      @Route("/admin/seance/{id<[0-9]+>}/delete", name="seance_delete", methods= "GET")
+     */    
+    #[Route('admin/seance/{id<[0-9]+>}/delete', name: 'seance_delete', methods: ['GET'])]
     public function deleteSeance(Seance $seance, EntityManagerInterface $entityManager)
     {
         $entityManager->remove($seance);

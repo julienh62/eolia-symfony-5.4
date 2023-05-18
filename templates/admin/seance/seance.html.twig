@@ -1,27 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.calendar.html.twig' %}
 
-{% block title %}admin-seance
+{% block title %}
+admin-seance
 {% endblock %}
 
 {% block body %}
 {% include "_partials/_nav_admin.html.twig" %}
    <main class="container">
-      <h1>Liste des séances
+      <h1 class="calendrier">Liste des séances
       </h1>
-   
+   <div id="calendrier"> mon calendrier</div>
 
 
-<table class="table">
-        <thead>
-            <tr>
-                <th>Séances</th>
-                <th> Date  </th>
-                <th> Disponibité </th>
-                <th> Action </th>
-                <th> Modifier </th>
-            </tr>
-        </thead>
-        <tbody>
+      <table class="table">
+          <thead>
+              <tr>
+                 <th>Séances</th>
+                 <th> Date  </th>
+                 <th> Disponibité </th>
+                 <th> Action </th>
+                 <th> Modifier </th>
+             </tr>
+          </thead>
+          <tbody>
        
        {% for s in seances %}
                 <tr>
@@ -46,7 +47,34 @@
         </tbody>
 
  
-    </table>
-    
+      </table>
+
+
    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+
+<script>
+ window.onload = () => {
+        let calendarElt = document.querySelector("#calendrier")
+
+        let calendar = new FullCalendar.Calendar(calendarElt, {
+            initialView: 'timeGridWeek',
+            locale: 'fr',
+            timeZone: 'Europe/Paris',
+            headerToolbar: {
+               start: 'prev, next today',
+               center: 'title',
+               end: 'dayGridMonth, timeGridWeek' 
+            }
+                  
+    })
+
+    calendar.render()
+  }
+</script>
 {% endblock %}

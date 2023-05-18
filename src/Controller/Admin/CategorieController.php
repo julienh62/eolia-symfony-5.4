@@ -113,7 +113,7 @@ class CategorieController extends AbstractController
         if ($form->isSubmitted()) {
 
             $em->flush();
-            // $flashbag->add('success', "la catégorie a bien été modifiée");
+           
             $this->flashBagInterface->add('success', "la catégorie a bien été modifiée");
            
             return $this->redirectToRoute('categorie_list');

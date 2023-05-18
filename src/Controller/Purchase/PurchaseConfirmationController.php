@@ -47,7 +47,7 @@ class PurchaseConfirmationController extends AbstractController
            //FormFactoryInterface / Request chaque requete est differente
            // c'est pour cela qu'elle est ici et non pas dans le constructeur
            $form = $this->createForm(CartConfirmationType::class);
-           // $form = $this->formFactory->create(CartConfirmationType::class);
+          
 
            //handleRequest pour analyser la requete
            $form->handleRequest($request);
@@ -62,7 +62,7 @@ class PurchaseConfirmationController extends AbstractController
 
            //4 s'il n'y a pas de seances dans le panier ; sortir 
            $cartItems = $this->cartService->getDetailedCartItems();
-          // dd($cartItems);
+        
            if (count($cartItems) === 0) {
               $this->addFlash('warning', "Vous ne pouvez confirmée une commande avec un panier vide");
                return $this->redirectToRoute('cart_index');
